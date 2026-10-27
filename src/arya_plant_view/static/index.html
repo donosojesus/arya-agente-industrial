@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>THE PLANT · Área 100 · P-101</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="titlebar">
+    <div class="tb-left">
+      <span class="sysname">THE PLANT</span>
+      <span class="crumb">PLANTA <i>›</i> ÁREA 100 · BOMBEO DE PROCESO <i>›</i> <b>P-101</b></span>
+      <span class="dispid">GR-100-01</span>
+    </div>
+    <div class="tb-right">
+      <span class="station">Notebook · Planta / OT simulada</span>
+      <span id="conn" class="comm" data-state="CONNECTING"><span class="led"></span><span id="conn-text">OPC UA · CONECTANDO</span></span>
+      <span class="user">OPERADOR · OWS-01</span>
+      <span class="clock"><b id="clock-time">--:--:--</b><small id="clock-date"></small></span>
+      <button id="demo-toggle" class="tb-btn" type="button">DEMO</button>
+    </div>
+  </header>
+
+  <section class="alarmbar" id="alarmbar" data-level="NONE">
+    <div class="counts">
+      <span class="cnt p1"><span class="shape sq">1</span><b id="cnt-p1">–</b><small>ALARM</small></span>
+      <span class="cnt p2"><span class="shape tri">2</span><b id="cnt-p2">–</b><small>WARNING</small></span>
+    </div>
+    <div class="latest" id="latest">Sin datos de la planta</div>
+    <button id="ack" class="ack" type="button" disabled>RECONOCER</button>
+  </section>
+
+  <div id="banner" class="commloss" hidden></div>
+
+  <main class="layout">
+    <section class="panel process" id="process" data-level="UNKNOWN" data-running="false">
+      <h2>Área 100 — Bombeo de proceso <small>Simulación demostrativa · valores ficticios</small></h2>
+      <svg id="pid" viewBox="0 0 1000 400" role="img" aria-label="Diagrama de proceso de la bomba P-101">
+        <!-- lineas de proceso -->
+        <path class="line" d="M160 270 H472"/>
+        <path class="line" d="M510 232 V130 H930"/>
+        <path class="arrowhead" d="M930 130 l-16 -8 v16 z"/>
+        <path class="flowmark" d="M395 270 l-12 -6 v12 z"/>
+        <path class="flowmark" d="M860 130 l-12 -6 v12 z"/>
+        <!-- estanque -->
+        <path class="equip" d="M40 110 a60 22 0 0 1 120 0 V290 a60 22 0 0 1 -120 0 z"/>
+        <text class="eq-tag" x="100" y="196" text-anchor="middle">TK-100</text>
+        <text class="eq-sub" x="100" y="214" text-anchor="middle">Estanque de</text>
+        <text class="eq-sub" x="100" y="229" text-anchor="middle">alimentación</text>
+        <!-- valvula de succion -->
+        <path class="valve" d="M212 258 l24 24 v-24 l-24 24 z"/>
+        <path class="line thin" d="M224 270 V250 M214 250 H234"/>
+        <text class="eq-sub" x="224" y="302" text-anchor="middle">HV-101</text>
+        <!-- filtro de succion -->
+        <rect class="valve" x="300" y="256" width="44" height="28"/>
+        <path class="line thin" d="M304 280 l12 -20 M316 280 l12 -20 M328 280 l12 -20"/>
+        <text class="eq-sub" x="322" y="302" text-anchor="middle">STR-101</text>
+        <!-- bomba -->
+        <rect class="basepl" x="455" y="312" width="225" height="8"/>
+        <path class="line thin" d="M490 300 V312 M530 300 V312 M606 292 V312 M654 292 V312"/>
+        <circle class="pump" cx="510" cy="270" r="38"/>
+        <path class="pump-mark" d="M510 246 l18 34 h-36 z"/>
+        <path class="shaft" d="M548 270 H592"/>
+        <circle class="pump motor" cx="630" cy="270" r="30"/>
+        <text class="motor-m" x="630" y="279" text-anchor="middle">M</text>
+        <text class="eq-tag" x="510" y="345" text-anchor="middle">P-101</text>
+        <text class="eq-sub" x="510" y="361" text-anchor="middle">Bomba centrífuga</text>
+        <text class="eq-state" id="pid-state" x="630" y="345" text-anchor="middle">—</text>
+        <!-- valvulas de descarga -->
+        <path class="valve" d="M640 118 l24 24 v-24 l-24 24 z"/>
+        <path class="line thin" d="M652 118 l0 24"/>
+        <text class="eq-sub" x="652" y="162" text-anchor="middle">CV-101</text>
+        <path class="valve" d="M748 118 l24 24 v-24 l-24 24 z"/>
+        <path class="line thin" d="M760 130 V110 M750 110 H770"/>
+        <text class="eq-sub" x="760" y="162" text-anchor="middle">HV-102</text>
+        <text class="eq-sub" x="940" y="116" text-anchor="end">A PROCESO</text>
+        <!-- instrumentos: lineas guia -->
+        <path class="leader" d="M565 130 V84 M845 130 V84 M482 296 L444 330 M660 270 H720 M690 270 V220 H720 M690 270 V320 H720"/>
+        <!-- cajas de instrumentos (rellenadas por app.js) -->
+        <g class="inst" id="inst-P101.DISCHARGE_PRESSURE" transform="translate(490 36)"></g>
+        <g class="inst" id="inst-P101.FLOW" transform="translate(770 36)"></g>
+        <g class="inst" id="inst-P101.VIBRATION" transform="translate(262 328)"></g>
+        <g class="inst" id="inst-P101.MOTOR_TEMP" transform="translate(720 196)"></g>
+        <g class="inst" id="inst-P101.CURRENT" transform="translate(720 246)"></g>
+        <g class="inst" id="inst-P101.RPM" transform="translate(720 296)"></g>
+      </svg>
+    </section>
+
+    <section class="panel faceplate" id="faceplate">
+      <h2>P-101 · Bomba centrífuga</h2>
+      <div class="fp-state">
+        <div><small>ESTADO</small><b id="fp-status">—</b></div>
+        <div><small>NIVEL DE ALARMA</small><b id="fp-level" data-level="UNKNOWN">—</b></div>
+        <div><small>CALIDAD</small><b id="quality" data-quality="NONE">SIN DATOS</b></div>
+      </div>
+      <div class="bars" id="bars"></div>
+    </section>
+
+    <section class="panel trends-panel">
+      <h2>Tendencias <small id="trend-note">Datos observados desde que se abrió esta pantalla</small></h2>
+      <div class="trends" id="trends"></div>
+    </section>
+
+    <section class="panel alarms-panel">
+      <h2>Alarmas activas <small id="alarm-count">—</small></h2>
+      <table class="tbl">
+        <thead><tr><th>Detectada</th><th>Pri</th><th>Tag</th><th>Descripción</th><th>Valor</th><th>Límite</th><th>Estado</th></tr></thead>
+        <tbody id="alarms"><tr class="empty"><td colspan="7">Sin datos</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="panel journal-panel">
+      <h2>Eventos <small>Registrados por esta pantalla desde que se abrió</small></h2>
+      <table class="tbl">
+        <thead><tr><th>Hora</th><th>Tipo</th><th>Evento</th></tr></thead>
+        <tbody id="journal"><tr class="empty"><td colspan="3">Sin eventos</td></tr></tbody>
+      </table>
+    </section>
+
+    <section class="panel data-panel">
+      <h2>Comunicación y datos</h2>
+      <dl class="kv">
+        <dt>Origen</dt><dd id="d-endpoint">—</dd>
+        <dt>Timestamp de origen (UTC)</dt><dd id="d-ts">—</dd>
+        <dt>Antigüedad del dato</dt><dd id="d-age">—</dd>
+        <dt>Ensayo (run_id)</dt><dd id="d-run">—</dd>
+        <dt>Lote · tiempo simulado</dt><dd id="d-seq">—</dd>
+        <dt>Último error</dt><dd id="d-error">—</dd>
+      </dl>
+    </section>
+  </main>
+
+  <aside class="drawer" id="drawer" hidden>
+    <h2>Controles de demostración <small>Solo presentador · API local</small></h2>
+    <div class="row">
+      <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="Token local de control (.env)">
+      <button id="token-save" class="btn" type="button">Usar token</button>
+    </div>
+    <label class="lbl">Escenario
+      <select id="scenario-select"><option value="alpha">Escenario A</option><option value="bravo">Escenario B</option></select>
+    </label>
+    <div class="buttons">
+      <button class="btn act fault" data-action="inject-fault" type="button" disabled>INJECT FAULT</button>
+      <button class="btn act" data-action="reset" type="button" disabled>RESET DEMO</button>
+      <button class="btn act wide" data-action="normal" type="button" disabled>NORMAL OPERATION</button>
+    </div>
+    <p class="scenario" id="scenario">Ingrese el token para habilitar los controles.</p>
+    <p class="control-msg" id="control-msg" hidden></p>
+    <p class="help">NORMAL OPERATION retira la falla: los valores vuelven gradualmente. RESET DEMO reinicia la
+      simulación de inmediato con un nuevo ensayo. La falla solo empieza cuando alguien la inicia.</p>
+  </aside>
+
+  <footer class="statusbar">
+    <span>ARYA Industrial Demo</span>
+    <span>Valores y límites ficticios para demostración, no normativos</span>
+    <span>Telemetría obtenida por OPC UA · solo lectura</span>
+  </footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>

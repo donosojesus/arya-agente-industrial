@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1f2a36"/></marker>
+    <style>
+      .t{font-size:30px;font-weight:800;fill:#10161d;letter-spacing:1px}.st{font-size:16px;fill:#4a5663}
+      .zone{font-size:20px;font-weight:800;letter-spacing:2px}.zs{font-size:14px}.sub{font-size:13px;font-weight:800;letter-spacing:2px;fill:#4a5663}
+      .box{fill:#ffffff;stroke:#1f2a36;stroke-width:2}.dbox{fill:#1b2836;stroke:#7fa6c9;stroke-width:2}
+      .pend{fill:#fff8e1;stroke:#c98a00;stroke-width:2;stroke-dasharray:8 5}
+      .h{font-size:15.5px;font-weight:700;fill:#10161d}.p{font-size:13px;fill:#3a4653}.m{font-size:12px;fill:#5b6876;font-family:Consolas,monospace}
+      .hw{font-size:17px;font-weight:700;fill:#ffffff}.pw{font-size:13px;fill:#c6d3e0}
+      .ln{stroke:#1f2a36;stroke-width:2.5;fill:none}.lb{font-size:12.5px;fill:#10161d;font-weight:600}
+      .chip{fill:#24384c;stroke:#4f7396;stroke-width:1}.ct{font-size:13px;fill:#e9eef4}
+      .card{fill:#ffffff;stroke:#aab4bf;stroke-width:1.5}.ch{font-size:14px;font-weight:800;fill:#10161d}.cp{font-size:12.5px;fill:#3a4653}
+    </style>
+  </defs>
+  <rect width="1920" height="1080" fill="#f6f7f9"/>
+  <text class="t" x="40" y="46">ARYA · Industrial Demo</text>
+  <text class="st" x="40" y="74" font-weight="700">Arquitectura de la plataforma</text>
+  <text class="st" x="40" y="98">Estado al 20 de octubre de 2026</text>
+  <rect x="610" y="20" width="760" height="112" rx="8" fill="#10161d"/>
+  <text x="990" y="44" text-anchor="middle" font-size="14" font-weight="700" fill="#c6d3e0" letter-spacing="2">PANTALLA GIGANTE · navegador del notebook</text>
+  <rect x="626" y="54" width="358" height="66" rx="4" fill="#b9bec3"/><text x="805" y="83" text-anchor="middle" font-size="17" font-weight="800" fill="#10161d" letter-spacing="3">THE PLANT</text><text x="805" y="104" text-anchor="middle" font-size="12.5" fill="#2b3036">sistema de control · botones de la simulación</text>
+  <rect x="996" y="54" width="358" height="66" rx="4" fill="#0b0f14" stroke="#3fb6ff"/><text x="1175" y="83" text-anchor="middle" font-size="17" font-weight="800" fill="#ffffff" letter-spacing="5">ARYA</text><text x="1175" y="104" text-anchor="middle" font-size="12.5" fill="#c6d3e0">conversación · voz · orden de trabajo · por dentro</text>
+  <text class="p" x="1390" y="60">Presentador e invitados:</text><text class="p" x="1390" y="78">preguntan (por voz o escribiendo),</text><text class="p" x="1390" y="96">simulan la falla y aprueban la orden</text>
+    <rect x="40" y="160" width="1300" height="740" rx="14" fill="#e3e6ea" stroke="#1f2a36" stroke-width="3"/>
+  <text class="zone" x="64" y="194" fill="#10161d">NOTEBOOK</text>
+  <text class="zs" x="210" y="194" fill="#3a4653">Contenedores Docker · puertos solo locales · la planta funciona sola, sin la GB10</text>
+  <text class="sub" x="60" y="226">PLANTA / OT SIMULADA</text>
+  <text class="sub" x="700" y="228">CAPA DE IA Y PRESENTACIÓN</text>
+  <path d="M670 214 V760" stroke="#9aa4ae" stroke-width="1.5" stroke-dasharray="6 6"/>
+  <rect class="box" x="60" y="250" width="290" height="108" rx="8"/>
+  <text class="h" x="76" y="276">plant-view · Pantalla HMI</text>
+  <text class="m" x="336" y="276" text-anchor="end">:8080</text>
+  <text class="p" x="76" y="298">Estilo ISA-101: diagrama, alarmas,</text>
+  <text class="p" x="76" y="316">tendencias y eventos. Solo lectura.</text>
+  <rect class="box" x="370" y="250" width="290" height="108" rx="8"/>
+  <text class="h" x="386" y="276">ot-gateway · Historian</text>
+  <text class="m" x="646" y="276" text-anchor="end">:8081</text>
+  <text class="p" x="386" y="298">Historia real (SQLite) y API de lectura:</text>
+  <text class="p" x="386" y="316">valores, tendencia, inicio de desvío. Solo GET.</text>
+  <rect x="60" y="410" width="600" height="48" rx="8" fill="#1f2a36"/><text x="360" y="440" text-anchor="middle" font-size="15.5" font-weight="700" fill="#ffffff">Servidor OPC UA real · solo lectura · :4840 · rechaza escrituras</text>
+  <rect class="box" x="60" y="492" width="380" height="128" rx="8"/>
+  <text class="h" x="76" y="518">plant · Simulador de la bomba P-101</text>
+  <text class="p" x="76" y="540">Señales correlacionadas e inercia térmica</text>
+  <text class="p" x="76" y="558">Alarmas con histéresis (control determinístico)</text>
+  <text class="p" x="76" y="576">Escenarios A y B; la causa real queda oculta</text>
+  <text class="p" x="76" y="594">para evaluar al agente</text>
+  <rect class="box" x="460" y="492" width="200" height="128" rx="8"/>
+  <text class="h" x="476" y="518">Control de simulación</text>
+  
+  <text class="p" x="476" y="540">Solo dos acciones desde</text>
+  <text class="p" x="476" y="558">la pantalla: SIMULAR FALLA</text>
+  <text class="p" x="476" y="576">y VOLVER A NORMAL</text>
+  <rect class="box" x="60" y="650" width="600" height="92" rx="8"/>
+  <text class="h" x="76" y="676">cmms · Órdenes de trabajo</text>
+  <text class="m" x="646" y="676" text-anchor="end">:8082</text>
+  <text class="p" x="76" y="698">Historial de mantenimiento. El agente solo crea BORRADORES;</text>
+  <text class="p" x="76" y="716">aprobar exige un token humano que el agente no tiene.</text>
+  <rect class="box" x="700" y="250" width="620" height="92" rx="8"/>
+  <text class="h" x="716" y="276">demo-ui · Pantalla dividida</text>
+  <text class="m" x="1306" y="276" text-anchor="end">:8090</text>
+  <text class="p" x="716" y="298">Planta + ARYA + tablero POR DENTRO. Reenvía solo lo necesario:</text>
+  <text class="p" x="716" y="316">conversación, eventos, aprobar/rechazar y los dos botones de la simulación.</text>
+  <rect class="dbox" x="700" y="370" width="620" height="300" rx="8"/>
+  <text class="hw" x="716" y="398">agent · ARYA</text><text x="1306" y="398" font-size="12" fill="#9fb6cc" font-family="Consolas,monospace" text-anchor="end">:8091</text>
+  <text class="pw" x="716" y="420">El modelo decide qué consultar; el código fija los límites. Solo lectura sobre el proceso.</text>
+  <rect class="chip" x="716" y="436" width="290" height="54" rx="6"/><text class="ct" x="728" y="458" font-weight="700">Ciclo acotado</text><text class="ct" x="728" y="478">8 herramientas · 6 pasos · 2 min</text>
+  <rect class="chip" x="1016" y="436" width="290" height="54" rx="6"/><text class="ct" x="1028" y="458" font-weight="700">10 herramientas con contrato</text><text class="ct" x="1028" y="478">validación · timeout · error controlado</text>
+  <rect class="chip" x="716" y="500" width="290" height="54" rx="6"/><text class="ct" x="728" y="522" font-weight="700">Documentos (RAG local)</text><text class="ct" x="728" y="542">9 documentos · cita el identificador</text>
+  <rect class="chip" x="1016" y="500" width="290" height="54" rx="6"/><text class="ct" x="1028" y="522" font-weight="700">Memoria</text><text class="ct" x="1028" y="542">incidentes y decisiones verificadas</text>
+  <rect class="chip" x="716" y="564" width="290" height="54" rx="6"/><text class="ct" x="728" y="586" font-weight="700">Guardrails</text><text class="ct" x="728" y="606">consulta antes · verifica citas · se niega a operar</text>
+  <rect class="chip" x="1016" y="564" width="290" height="54" rx="6"/><text class="ct" x="1028" y="586" font-weight="700">Traza y métricas</text><text class="ct" x="1028" y="606">fuente · ms · tokens · TTFT · TPOT</text>
+  <text class="pw" x="716" y="644">Aviso proactivo: interviene solo cuando aparece una alarma, si el presentador lo activa.</text>
+  <rect class="box" x="700" y="690" width="620" height="52" rx="8"/>
+  <text class="h" x="716" y="716">Voz local de Windows · sin Internet</text>
+  <text class="p" x="1010" y="716" text-anchor="start">HABLAR: reconocedor es-ES · VOZ: voces es-ES</text>
+  <text class="p" x="64" y="790">Scripts: arya.sh (subir, estado, abrir, reiniciar, bajar) · rehearse-agent · update-offline · soak-test</text>
+  <text class="p" x="64" y="812">85 pruebas automáticas con OPC UA real y procesos reales</text>
+  <text class="p" x="64" y="834">Sin Internet: imágenes construidas de antemano; el código se actualiza sin red con update-offline</text>
+  <path class="ln" d="M205 410 V362" marker-end="url(#ah)"/><text class="lb" x="215" y="390">OPC UA</text>
+  <path class="ln" d="M515 410 V362" marker-end="url(#ah)"/><text class="lb" x="525" y="390">OPC UA (cliente real)</text>
+  <path class="ln" d="M250 492 V462" marker-end="url(#ah)"/>
+  <path class="ln" d="M460 556 H444" marker-end="url(#ah)"/>
+  <path class="ln" d="M760 250 V240 H205 V246" marker-end="url(#ah)"/><text class="lb" x="455" y="235" text-anchor="middle">incrusta la vista compacta</text>
+  <path class="ln" d="M1010 342 V366" marker-end="url(#ah)"/><text class="lb" x="1020" y="359">preguntas y eventos</text>
+  <path class="ln" d="M700 470 H684 V304 H664" marker-end="url(#ah)"/><text class="lb" transform="translate(696 390) rotate(-90)" text-anchor="middle">solo lectura</text>
+  <path class="ln" d="M700 640 H684 V700 H664" marker-end="url(#ah)"/><text class="lb" transform="translate(696 668) rotate(-90)" text-anchor="middle">borradores</text>
+  <path class="ln" d="M990 132 V180 H1010 V246" marker-end="url(#ah)"/>
+  <rect x="1340" y="160" width="120" height="740" fill="#d4d9df"/>
+  <text x="1400" y="196" text-anchor="middle" font-size="14" font-weight="800" fill="#10161d">ETHERNET</text><text x="1400" y="214" text-anchor="middle" font-size="12" fill="#10161d">cable directo</text>
+  <text x="1400" y="780" text-anchor="middle" font-size="14" font-weight="800" fill="#10161d">SIN</text><text x="1400" y="798" text-anchor="middle" font-size="14" font-weight="800" fill="#10161d">INTERNET</text><text x="1400" y="818" text-anchor="middle" font-size="12" fill="#10161d">todo es local</text>
+  <path class="ln" d="M1320 520 H1476" marker-end="url(#ah)" marker-start="url(#ah)"/>
+  <text class="lb" x="1400" y="486" text-anchor="middle">razonamiento:</text><text class="lb" x="1400" y="502" text-anchor="middle">consultas al modelo</text><text class="lb" x="1400" y="546" text-anchor="middle">streaming</text>
+  <rect x="1460" y="160" width="420" height="740" rx="14" fill="#0f1822" stroke="#1f2a36" stroke-width="3"/>
+  <text class="zone" x="1480" y="194" fill="#ffffff">DELL PRO MAX GB10</text><text x="1480" y="216" font-size="15" font-weight="800" fill="#76b900" letter-spacing="2">AI COMPUTE NODE</text>
+  <text class="pw" x="1480" y="244">Todo el razonamiento del modelo ocurre aquí.</text><text class="pw" x="1480" y="262">Nada sale a la nube.</text>
+  <rect x="1480" y="420" width="380" height="200" rx="8" fill="#76b900"/>
+  <text x="1498" y="452" font-size="22" font-weight="800" fill="#0b1400">NVIDIA Nemotron</text>
+  <text x="1498" y="480" font-size="15" font-weight="600" fill="#0b1400">modelo de lenguaje local (NIM)</text>
+  <text x="1498" y="508" font-size="14" font-weight="400" fill="#0b1400">nvidia/nemotron-3-nano</text>
+  <text x="1498" y="536" font-size="14" font-weight="400" fill="#0b1400">Contexto de 32.000 tokens</text>
+  <text x="1498" y="564" font-size="14" font-weight="400" fill="#0b1400">Llamadas a herramientas nativas</text>
+  <text x="1498" y="592" font-size="14" font-weight="700" fill="#0b1400">Instalación existente, sin modificar</text>
+  <rect class="pend" x="1480" y="650" width="380" height="74" rx="8"/><text class="h" x="1496" y="676">Indicador de uso de la GPU</text><text class="p" x="1496" y="696">Opcional; requiere autorización para</text><text class="p" x="1496" y="713">leer datos de la GB10</text>
+  <text class="pw" x="1480" y="800">Escalamiento con la misma arquitectura:</text>
+  <text x="1480" y="826" font-size="15" font-weight="800" fill="#ffffff">GB10 (piloto) → PowerEdge</text><text x="1480" y="848" font-size="15" font-weight="800" fill="#ffffff">(producción) → AI Factory</text>
+  
+  <rect class="card" x="40" y="918" width="452" height="142" rx="8"/><text class="ch" x="56" y="944">El control manda, la IA asiste</text>
+  <text class="cp" x="56" y="968">ARYA no puede escribir en la planta, por construcción:</text><text class="cp" x="56" y="988">no tiene herramientas de escritura, el gateway solo lee,</text>
+  <text class="cp" x="56" y="1008">OPC UA rechaza escrituras y no tiene el token de control.</text><text class="cp" x="56" y="1028">Ante un pedido de operar, se niega de forma explícita.</text>
+  <rect class="card" x="512" y="918" width="452" height="142" rx="8"/><text class="ch" x="528" y="944">La decisión es humana</text>
+  <text class="cp" x="528" y="968">ARYA crea órdenes solo como borrador y solo si se le pide.</text><text class="cp" x="528" y="988">Aprobar exige un token que el agente no tiene, y la memoria</text>
+  <text class="cp" x="528" y="1008">registra la decisión solo tras verificarla en el CMMS.</text>
+  <rect class="card" x="984" y="918" width="452" height="142" rx="8"/><text class="ch" x="1000" y="944">Nunca inventa datos</text>
+  <text class="cp" x="1000" y="968">Consulta datos antes de cada respuesta. Si cita una orden,</text><text class="cp" x="1000" y="988">un documento o una fecha que no consultó, se corrige o se</text>
+  <text class="cp" x="1000" y="1008">marca. Sin datos o sin modelo, lo dice.</text>
+  <rect class="card" x="1456" y="918" width="424" height="142" rx="8"/><text class="ch" x="1472" y="944">Leyenda</text>
+  <rect x="1472" y="958" width="46" height="22" rx="4" class="box"/><text class="cp" x="1530" y="974">Construido y probado</text>
+  <rect x="1472" y="988" width="46" height="22" rx="4" class="pend"/><text class="cp" x="1530" y="1004">Pendiente u opcional</text>
+  <path class="ln" d="M1472 1030 H1518" marker-end="url(#ah)"/><text class="cp" x="1530" y="1034">Comunicación</text>
+</svg>

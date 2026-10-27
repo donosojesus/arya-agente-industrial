@@ -1,0 +1,118 @@
+/* Manual de ingenieria de planta: indice fijo a la izquierda, columna de lectura de ~68 caracteres,
+   codigo a lo ancho de la columna con su archivo y lineas. Acento: naranja de seguridad de la demo. */
+:root {
+  --paper: #f4f6f8; --sheet: #ffffff; --ink: #18212d; --muted: #5a6677; --rule: #d7dde5;
+  --accent: #b85400; --accent-soft: #fbe9d8; --process: #1f5f99; --ok: #1b7a4b; --ok-soft: #e1f2e8;
+  --warn: #9a3412; --warn-soft: #fdeae4; --code-bg: #f0f3f7; --code-ink: #1d2733;
+  --t-kw: #8a3ffc; --t-str: #1b7a4b; --t-num: #b85400; --t-com: #6b7685; --t-fn: #1f5f99; --t-cls: #a0306a;
+  --display: "Barlow Condensed", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --paper: #0d131c; --sheet: #121a25; --ink: #e6ebf2; --muted: #98a4b5; --rule: #263244;
+  --accent: #f39a2b; --accent-soft: #2e2214; --process: #6cb2ee; --ok: #4fc68a; --ok-soft: #12261c;
+  --warn: #f08a6c; --warn-soft: #2c1712; --code-bg: #0a1018; --code-ink: #dbe3ee;
+  --t-kw: #c39bff; --t-str: #7fd6a3; --t-num: #f6b26b; --t-com: #7d8898; --t-fn: #7cc0f5; --t-cls: #f08fc0;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --paper: #0d131c; --sheet: #121a25; --ink: #e6ebf2; --muted: #98a4b5; --rule: #263244;
+  --accent: #f39a2b; --accent-soft: #2e2214; --process: #6cb2ee; --ok: #4fc68a; --ok-soft: #12261c;
+  --warn: #f08a6c; --warn-soft: #2c1712; --code-bg: #0a1018; --code-ink: #dbe3ee;
+  --t-kw: #c39bff; --t-str: #7fd6a3; --t-num: #f6b26b; --t-com: #7d8898; --t-fn: #7cc0f5; --t-cls: #f08fc0;
+  color-scheme: dark; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.62; }
+.book { display: grid; grid-template-columns: minmax(0, 290px) minmax(0, 1fr); gap: 0; max-width: 1280px; margin: 0 auto; }
+.toc { position: sticky; top: env(safe-area-inset-top, 0px); align-self: start; max-height: 100vh; overflow-y: auto;
+  padding-block: 28px 40px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 18px; border-right: 1px solid var(--rule); }
+.toc-title { font-family: var(--display); font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: 14px; color: var(--accent); margin: 0 0 12px; }
+.toc ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.toc a { color: var(--muted); text-decoration: none; display: block; padding: 2px 0; font-size: 14px; line-height: 1.35; }
+.toc a:hover, .toc a:focus-visible { color: var(--ink); }
+.toc a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.toc .l1 { margin-top: 10px; } .toc .l1 a { color: var(--ink); font-family: var(--display); font-weight: 600; font-size: 16px; letter-spacing: .02em; }
+.toc .l1 b { color: var(--accent); display: inline-block; min-width: 1.6em; } .toc .l2 a { padding-left: 1.6em; }
+.pages { min-width: 0; padding-block: 28px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.chapter { background: var(--sheet); border: 1px solid var(--rule); padding: clamp(20px, 4vw, 56px); margin: 0 auto 32px; max-width: 860px; }
+.chapter > :is(p, ul, ol, h2, h3, .callout) { max-width: 68ch; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.1; color: var(--ink); }
+h1 { font-size: clamp(34px, 5vw, 50px); font-weight: 700; margin: 0 0 26px; letter-spacing: .005em; display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+.ch-num { font-size: .5em; font-weight: 600; color: var(--accent); border: 2px solid var(--accent); padding: 2px 10px; letter-spacing: .08em; }
+h2 { font-size: 27px; font-weight: 600; margin: 40px 0 10px; padding-top: 12px; border-top: 1px solid var(--rule); }
+h3 { font-size: 21px; font-weight: 600; margin: 28px 0 6px; color: var(--process); }
+p { margin: 0 0 14px; } ul, ol { margin: 0 0 16px; padding-left: 1.3em; } li { margin: 3px 0; }
+a { color: var(--process); } strong { font-weight: 600; }
+code, pre { font-variant-ligatures: none; font-feature-settings: "calt" 0, "liga" 0; }
+code { font-family: var(--mono); font-size: .84em; background: var(--code-bg); color: var(--code-ink); padding: 1px 5px; border-radius: 3px; overflow-wrap: anywhere; }
+figure { margin: 18px 0 24px; }
+figure.code { border: 1px solid var(--rule); background: var(--code-bg); }
+figure.code figcaption { font-family: var(--mono); font-size: 12px; color: var(--muted); padding: 6px 12px; border-bottom: 1px solid var(--rule); letter-spacing: .02em; }
+figure.code .file { color: var(--accent); font-weight: 600; }
+figure.code pre { margin: 0; padding: 12px 14px; overflow-x: auto; font-family: var(--mono); font-size: 13px; line-height: 1.55; color: var(--code-ink); tab-size: 4; }
+figure.code pre code { background: none; padding: 0; font-size: inherit; color: inherit; overflow-wrap: normal; }
+figure.shot img { display: block; width: 100%; max-width: 100%; height: auto; border: 1px solid var(--rule); }
+figure.shot figcaption { font-size: 14px; color: var(--muted); margin-top: 6px; font-style: italic; }
+.table { overflow-x: auto; margin: 0 0 20px; }
+td:first-child code { overflow-wrap: normal; word-break: normal; }  /* search_maintenance_documents no se parte */
+table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 1.45; }
+th { font-family: var(--display); font-weight: 600; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); text-align: left; border-bottom: 2px solid var(--ink); padding: 6px 10px; }
+td { border-bottom: 1px solid var(--rule); padding: 7px 10px; vertical-align: top; font-variant-numeric: tabular-nums; }
+.callout { border-left: 4px solid var(--process); background: var(--code-bg); padding: 12px 16px; margin: 18px 0 22px; }
+.callout p { margin: 0 0 8px; } .callout p:last-child { margin: 0; }
+.callout .co-head { font-family: var(--display); font-size: 15px; letter-spacing: .06em; color: var(--muted); }
+.callout .co-head span { text-transform: uppercase; font-weight: 700; color: var(--process); }
+.callout.leccion { border-color: var(--accent); background: var(--accent-soft); } .callout.leccion .co-head span { color: var(--accent); }
+.callout.cuidado { border-color: var(--warn); background: var(--warn-soft); } .callout.cuidado .co-head span { color: var(--warn); }
+/* paginas de parte (01-0-parte-i.md, etc.: el id sale del titulo) */
+.chapter[id^="parte-"] { border-top: 6px solid var(--process); }
+.chapter[id^="parte-"] h1 { font-size: clamp(38px, 6vw, 60px); color: var(--process); }
+.toc a[href^="#parte-"] { color: var(--process); font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; margin-top: 14px; }
+/* portada */
+#arya-de-cero-a-agente { border-top: 6px solid var(--accent); padding-block: clamp(40px, 8vw, 110px); }
+#arya-de-cero-a-agente h1 { font-size: clamp(44px, 8vw, 78px); margin-bottom: 22px; }
+#arya-de-cero-a-agente p:first-of-type { font-size: 1.28em; line-height: 1.45; max-width: 32em; }
+#arya-de-cero-a-agente p:nth-of-type(2) { font-family: var(--display); font-weight: 600; font-size: 16px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-top: 28px; max-width: none; }
+#arya-de-cero-a-agente p:last-of-type { color: var(--muted); margin-top: 40px; }
+.colophon { max-width: 860px; margin: 0 auto; color: var(--muted); font-size: 14px; }
+/* resaltado de codigo (clases de Pygments) */
+.k, .kn, .kd, .kc, .kr, .ow { color: var(--t-kw); } .s, .s1, .s2, .sa, .sd, .si, .se, .sb, .sh { color: var(--t-str); }
+.m, .mi, .mf, .mh { color: var(--t-num); } .c, .c1, .cm, .ch, .cs { color: var(--t-com); font-style: italic; }
+.nf, .fm { color: var(--t-fn); } .nc, .nn { color: var(--t-cls); } .nd, .bp, .nb { color: var(--process); }
+@media (max-width: 900px) {
+  .book { grid-template-columns: minmax(0, 1fr); }
+  .toc { position: static; max-height: none; border-right: 0; border-bottom: 1px solid var(--rule); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  .chapter { padding: 20px 16px; }
+  .toc .l2 { display: none; }  /* en pantallas angostas, solo los capitulos */
+}
+@media print {
+  :root, :root[data-theme="dark"], :root:not([data-theme="light"]) {  /* el PDF siempre en tema claro */
+    --paper: #ffffff; --sheet: #ffffff; --ink: #18212d; --muted: #5a6677; --rule: #d7dde5; --accent: #b85400; --accent-soft: #fbe9d8;
+    --process: #1f5f99; --warn: #9a3412; --warn-soft: #fdeae4; --code-bg: #f0f3f7; --code-ink: #1d2733;
+    --t-kw: #8a3ffc; --t-str: #1b7a4b; --t-num: #b85400; --t-com: #6b7685; --t-fn: #1f5f99; --t-cls: #a0306a; color-scheme: light; }
+  body { font-size: 11pt; }
+  /* orden impreso: portada, indice, resto del libro (el indice esta fuera de <main> en el HTML) */
+  .book { display: flex; flex-direction: column; }
+  .pages { display: contents; }
+  .pages > .chapter:first-child { order: 0; }
+  .toc { order: 1; display: block; position: static; max-height: none; overflow: visible; border: 0; padding: 0; break-before: page; }
+  .pages > .chapter:not(:first-child), .colophon { order: 2; }
+  .toc-title { font-family: var(--display); font-size: 30pt; font-weight: 700; letter-spacing: .005em; text-transform: none; color: var(--ink); margin: 0 0 14pt; }
+  .toc ol { display: block; columns: 2; column-gap: 26pt; }
+  .toc li { break-inside: avoid; } .toc .l1 { break-after: avoid; margin-top: 7pt; }
+  .toc li:first-child { display: none; }  /* la portada no se lista */
+  .toc .l2 { display: block; } .toc .l2 a { padding-left: 1.5em; }  /* las secciones tambien, aunque la pagina mida menos de 900px */
+  .toc a { color: var(--ink); font-size: 9pt; padding: 0; } .toc .l1 a { font-size: 11pt; } .toc .l2 a { color: var(--muted); }
+  .pages { padding: 0; } .chapter { border: 0; padding: 0; max-width: none; break-before: page; margin: 0; }
+  #arya-de-cero-a-agente { border-top: 0; padding: 2.1in 0 0; }
+  .chapter[id^="parte-"] { border-top: 0; padding-top: 1.4in; }
+  .toc a[href^="#parte-"] { font-size: 10pt; margin-top: 8pt; }
+  /* el codigo largo puede cortarse entre paginas; el pie de archivo queda con su codigo */
+  figure.code { break-inside: auto; } figure.code figcaption { break-after: avoid; }
+  figure.code pre { white-space: pre-wrap; word-break: break-word; font-size: 8pt; line-height: 1.45; orphans: 4; widows: 3; }
+  figure.shot, .callout, tr { break-inside: avoid; } h2, h3 { break-after: avoid; break-inside: avoid; }
+}
+/* numero de pagina abajo al centro; la portada sin numero (Edge/Chrome 131 o posterior) */
+@page { size: letter; margin: 15mm 16mm 17mm; @bottom-center { content: counter(page); font-family: "Barlow Condensed", Arial, sans-serif; font-size: 9pt; color: #5a6677; } }
+@page :first { @bottom-center { content: none; } }

@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Del agente a la AI Factory · ARYA</title>
+  <link rel="stylesheet" href="/static/factory.css">
+</head>
+<body>
+  <header class="f-head">
+    <div>
+      <p class="kicker">DEL AGENTE A LA AI FACTORY</p>
+      <h1>De este piloto a una plataforma de IA industrial</h1>
+    </div>
+    <p class="legend"><span class="tag real">MEDIDO EN ESTA SALA</span> datos reales de ARYA · <span class="tag proj">PROYECCIÓN</span> cálculo con supuestos visibles</p>
+  </header>
+
+  <nav class="cycle" aria-label="Ciclo de la Dell AI Factory">
+    <span class="c-step done">1 · Caso de uso piloto</span><span class="c-arr">→</span>
+    <span class="c-step now">2 · Probar y validar <small>esta demo</small></span><span class="c-arr">→</span>
+    <span class="c-step">3 · Escalar a producción</span><span class="c-arr">→</span>
+    <span class="c-step">4 · Desplegar en operación</span><span class="c-arr">→</span>
+    <span class="c-step">5 · Siguientes casos de uso</span>
+    <span class="c-src">Ciclo de la Dell AI Factory with NVIDIA</span>
+  </nav>
+
+  <main class="stages">
+    <section class="stage s1">
+      <header><span class="step">1</span><div><h2>Caso de uso piloto</h2><p>1 planta · 1 agente · ARYA, hoy</p></div><span class="tag real">MEDIDO</span></header>
+      <div class="hw">
+        <svg viewBox="0 0 220 120" class="device" aria-hidden="true"><rect x="40" y="18" width="140" height="84" rx="10"/><rect x="56" y="34" width="108" height="10" rx="3" class="fill"/><circle cx="160" cy="86" r="5" class="led"/><path d="M60 86 H130"/></svg>
+        <h3>Dell Pro Max GB10</h3>
+        <p>NVIDIA GB10 Grace Blackwell · 128 GB de memoria unificada · NVIDIA Nemotron local</p>
+      </div>
+      <dl class="metrics" id="measured">
+        <dt>Tokens por consulta</dt><dd id="m-tokens">—</dd>
+        <dt>Tiempo por respuesta</dt><dd id="m-time">—</dd>
+        <dt>TTFT · TPOT</dt><dd id="m-speed">—</dd>
+        <dt>Origen de los datos</dt><dd id="m-source">—</dd>
+      </dl>
+    </section>
+
+    <div class="arrow">→</div>
+
+    <section class="stage s2">
+      <header><span class="step">2</span><div><h2>Escalar a producción</h2><p>Arquitectura de referencia NVIDIA 2-8-5-200</p></div><span class="tag proj">PROYECCIÓN</span></header>
+      <div class="rack">
+        <div class="unit gpu"><b>PowerEdge XE7745 · hasta 16 nodos</b><span>Hasta 8 × NVIDIA RTX PRO 6000 Blackwell Server Edition · DPU BlueField-3 · SuperNIC</span><em>Inferencia de modelos, agentes y visión</em></div>
+        <div class="unit app"><b>4 × PowerEdge R670</b><span>Plano de control y administración</span><em>Kubernetes u OpenShift, separado de las cargas de IA</em></div>
+        <div class="unit sto"><b>PowerScale F710</b><span>Almacenamiento escalable de alto rendimiento</span><em>Historian, documentos, memoria, modelos</em></div>
+        <div class="unit net"><b>NVIDIA Spectrum-4 SN5610 · Spectrum-X</b><span>Red Ethernet sin bloqueo entre GPUs · SN2201 para gestión</span><em>Red de la plataforma, separada de la red OT</em></div>
+      </div>
+      <p class="ref">Según Dell AI Factory with NVIDIA, configuración NVIDIA 2-8-5-200 (Solution Brief, julio de 2026)</p>
+    </section>
+
+    <div class="arrow">→</div>
+
+    <section class="stage s3">
+      <header><span class="step">3</span><div><h2>Siguientes casos de uso</h2><p>Una plataforma, muchas cargas de trabajo</p></div><span class="tag proj">PROYECCIÓN</span></header>
+      <div class="usecases">
+        <span>Plataforma de IA agéntica <small>(ARYA)</small></span><span>Visión por computador</span><span>Asistente de conocimiento</span><span>Asistente de código</span><span>IA inmersiva</span>
+      </div>
+      <div class="platform">
+        <div><b>Módulo base</b><span>Cómputo, red y almacenamiento que crecen por separado</span></div>
+        <div><b>Software de IA</b><span>NVIDIA AI Enterprise: NIM, NeMo, modelos Nemotron</span></div>
+        <div><b>Automatización</b><span>Dell Automation Platform: despliegue y operación</span></div>
+        <div><b>Servicios</b><span>Dell Services: del piloto a la producción</span></div>
+      </div>
+      <div class="actions">
+        <button type="button" id="data-btn" class="protect wide">¿CÓMO SE CONECTA A SUS DATOS?</button>
+        <button type="button" id="stack-btn" class="protect">VER EL STACK COMPLETO</button>
+        <button type="button" id="protect" class="protect">¿CÓMO LA PROTEGEMOS?</button>
+      </div>
+    </section>
+  </main>
+
+  <section class="calc">
+    <header><h2>Calculadora de escalamiento <span class="tag proj">PROYECCIÓN</span></h2><p>Parte de lo medido en el piloto. Los supuestos se pueden cambiar.</p></header>
+    <div class="calc-grid">
+      <div class="inputs">
+        <label>Plantas <output id="o-plants"></output><input type="range" id="plants" min="1" max="50" value="12"></label>
+        <label>Agentes por planta <output id="o-agents"></output><input type="range" id="agents" min="1" max="10" value="4"></label>
+        <label>Consultas por hora por agente <output id="o-qph"></output><input type="range" id="qph" min="1" max="60" value="20"></label>
+        <label>Factor de hora punta <output id="o-peak"></output><input type="range" id="peak" min="1" max="5" step="0.5" value="3"></label>
+        <label>Cámaras de visión por planta <output id="o-cams"></output><input type="range" id="cams" min="0" max="40" value="10"></label>
+        <label>Activos monitoreados por planta <output id="o-assets"></output><input type="range" id="assets" min="1" max="300" value="50"></label>
+        <label class="check"><input type="checkbox" id="think"> Razonamiento del modelo encendido (más calidad, más cómputo)</label>
+      </div>
+      <div class="results">
+        <div class="big"><span id="r-servers">—</span><small>servidores PowerEdge XE7745 <em id="r-clusters"></em></small></div>
+        <div class="big"><span id="r-gpus">—</span><small>GPU RTX PRO 6000 <em id="r-gpus-split"></em></small></div>
+        <div class="big"><span id="r-storage">—</span><small>almacenamiento del historian, 1 año</small></div>
+        <dl class="detail">
+          <dt>Consultas a los agentes</dt><dd id="r-queries">—</dd>
+          <dt>Tokens por día</dt><dd id="r-tokens">—</dd>
+          <dt>Tokens por segundo en hora punta</dt><dd id="r-tps">—</dd>
+        </dl>
+      </div>
+      <div class="assumptions">
+        <h3>Supuestos <small>(editables)</small></h3>
+        <label>Tokens de entrada por consulta <input type="number" id="a-in" min="100" step="100"></label>
+        <label>Tokens de salida por consulta <input type="number" id="a-out" min="10" step="10"></label>
+        <label>Prefill por GPU (tokens/s) <input type="number" id="a-prefill" value="20000" min="1000" step="1000"></label>
+        <label>Generación por GPU (tokens/s, agregada) <input type="number" id="a-decode" value="2500" min="100" step="100"></label>
+        <label>Uso objetivo de cada GPU (%) <input type="number" id="a-util" value="60" min="10" max="90" step="5"></label>
+        <label>GPU por cámara de visión <input type="number" id="a-cam" value="0.1" min="0.01" step="0.01"></label>
+        <label>Bytes por muestra del historian <input type="number" id="a-bytes" value="570" min="50" step="10"></label>
+        <p class="note">Los tokens por consulta y los bytes por muestra salen de ARYA. El rendimiento por GPU y la carga de visión son supuestos conservadores: ajústelos con datos del proveedor. Se agrega 1 GPU de respaldo.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="prot stackv af" id="stackv" hidden>
+    <header class="p-head">
+      <div><p class="kicker">DEL AGENTE A LA AI FACTORY</p><h1>La Dell AI Factory con NVIDIA, en una imagen</h1></div>
+      <p class="legend"><span class="v dell">DELL</span> <span class="v nv">NVIDIA</span> <span class="v both">DELL + NVIDIA</span> · <span class="tag real">EN ESTE PILOTO</span> lo que ya corre en la demo</p>
+      <button type="button" class="close" id="stack-close">VOLVER</button>
+    </header>
+    <div class="af-grid">
+      <div class="af-pillar left" data-k="gest"><b>GESTIÓN Y OBSERVABILIDAD</b>
+        <span class="c nv">Base Command Manager</span><span class="c dell">Dell Automation Platform</span><span class="c nv">NVIDIA NetQ</span>
+        <span class="c pilot">piloto: traza, tokens, TTFT/TPOT</span></div>
+      <div class="af-tower">
+        <div class="af-flow" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><em>los datos alimentan a los modelos; los modelos, a los agentes</em></div>
+        <div class="af-slab uc" data-k="uc"><h3><small>5</small>CASOS DE USO Y AGENTES</h3><div class="chips">
+          <span class="c pilot">ARYA · mantenimiento</span><span class="c">Visión por computador</span><span class="c">Asistente de conocimiento</span><span class="c">Asistente de código</span><span class="c">IA inmersiva</span><span class="c next">Mantenimiento predictivo · siguiente</span></div></div>
+        <div class="af-slab ai" data-k="ai"><h3><small>4</small>SOFTWARE DE IA · NVIDIA AI ENTERPRISE</h3><div class="chips">
+          <span class="c nv pilot">Modelos Nemotron</span><span class="c nv pilot">NVIDIA NIM</span><span class="c nv">NVIDIA NeMo</span><span class="c nv">NVIDIA AI Blueprints</span><span class="c">Otros modelos abiertos</span></div></div>
+        <div class="af-slab orq" data-k="orq"><h3><small>3</small>ORQUESTACIÓN Y OPERACIÓN</h3><div class="chips">
+          <span class="c">Kubernetes · Red Hat OpenShift</span><span class="c nv">Operadores GPU, red y NIM</span><span class="c nv">Run:ai</span><span class="c dell">Dell Automation Platform</span><span class="c dell">Dell CSI</span><span class="c pilot">piloto: Docker Compose</span></div></div>
+        <div class="af-slab infra" data-k="infra"><h3><small>2</small>INFRAESTRUCTURA · NVIDIA 2-8-5-200</h3>
+          <div class="af-hw">
+            <div><b>Cómputo</b><span class="c both">PowerEdge XE7745 · 8 × RTX PRO 6000</span><span class="c dell">PowerEdge R670 · control</span></div>
+            <div><b>Red</b><span class="c nv">Spectrum-X · Spectrum-4 SN5610</span><span class="c nv">BlueField-3 · SuperNIC</span></div>
+            <div><b>Almacenamiento</b><span class="c dell">PowerScale F710</span></div>
+          </div>
+          <span class="c pilot af-pilot">piloto: 1 Dell Pro Max GB10 · cable directo</span></div>
+        <div class="af-slab data" data-k="datos"><h3><small>1</small>DATOS · DELL AI DATA PLATFORM WITH NVIDIA</h3><div class="chips">
+          <span class="c pilot">Historian / OT</span><span class="c pilot">Órdenes de mantención (CMMS)</span><span class="c pilot">Manuales y procedimientos</span><span class="c">ERP</span><span class="c">Imágenes y video</span><span class="c dell">PowerScale · motores de datos</span></div></div>
+        <div class="af-svc" data-k="svc"><b>DELL SERVICES</b><span>Estrategia</span><i>→</i><span>Integración</span><i>→</i><span>Implementación de casos de uso</span><i>→</i><span>Operación</span></div>
+      </div>
+      <div class="af-pillar right" data-k="seg"><b>SEGURIDAD</b><span>Perímetro</span><span>Identidad</span><span>Alta disponibilidad</span><span>Datos inmutables</span><span>El agente</span>
+        <button type="button" class="af-protect" id="stack-protect">VER CÓMO LA PROTEGEMOS →</button></div>
+      <aside class="af-det" id="af-det">
+        <section data-d="intro"><p class="af-k">CÓMO LEERLA</p><h3>No es un servidor: es una plataforma</h3>
+          <ol><li><b>De abajo hacia arriba:</b> los datos alimentan a los modelos y los modelos, a los agentes.</li>
+            <li><b>Dos socios:</b> Dell pone la infraestructura, los datos y los servicios; NVIDIA, el cómputo acelerado, la red y el software de IA. Validado en conjunto como diseño de referencia.</li>
+            <li><b>Lo que vieron hoy</b> ya tiene cada capa, en pequeño: las marcas verdes.</li></ol>
+          <p class="af-hint">Pulse una capa para ver el detalle.</p></section>
+        <section data-d="uc" hidden><p class="af-k">CAPA 5</p><h3>Casos de uso y agentes</h3><p>Lo que ve el negocio. Muchos casos de uso comparten la misma plataforma, en vez de una solución aislada por problema.</p>
+          <dl><dt>En la AI Factory</dt><dd>Agentes, visión, asistentes de conocimiento y de código, IA inmersiva.</dd><dt class="p">En este piloto, hoy</dt><dd class="p">ARYA: un agente de mantenimiento que investiga fallas y no opera equipos.</dd></dl></section>
+        <section data-d="ai" hidden><p class="af-k">CAPA 4</p><h3>Software de IA</h3><p>Los modelos y las herramientas para servirlos y adaptarlos, en contenedores listos para producción.</p>
+          <dl><dt>En la AI Factory</dt><dd>NVIDIA AI Enterprise: NIM, NeMo, AI Blueprints y modelos como Nemotron.</dd><dt class="p">En este piloto, hoy</dt><dd class="p">Nemotron servido como NIM en la GB10 (nvidia/nemotron-3-nano).</dd></dl></section>
+        <section data-d="orq" hidden><p class="af-k">CAPA 3</p><h3>Orquestación y operación</h3><p>Reparte las cargas entre las GPU, reinicia lo que falla y despliega nuevas versiones sin parar el servicio.</p>
+          <dl><dt>En la AI Factory</dt><dd>Kubernetes u OpenShift con operadores de NVIDIA y de Dell, Run:ai y Dell Automation Platform.</dd><dt class="p">En este piloto, hoy</dt><dd class="p">Docker Compose: seis contenedores en el notebook.</dd></dl></section>
+        <section data-d="infra" hidden><p class="af-k">CAPA 2</p><h3>Infraestructura</h3><p>Cómputo, red y almacenamiento diseñados juntos: la configuración de referencia NVIDIA 2-8-5-200.</p>
+          <dl><dt>En la AI Factory</dt><dd>Hasta 16 PowerEdge XE7745 con 8 RTX PRO 6000 cada uno, 4 PowerEdge R670 de control, PowerScale F710 y red Spectrum-X.</dd><dt class="p">En este piloto, hoy</dt><dd class="p">Una Dell Pro Max GB10, conectada por cable directo.</dd></dl></section>
+        <section data-d="datos" hidden><p class="af-k">CAPA 1 · LA BASE</p><h3>Datos</h3><p>Un agente vale lo que valen sus datos. ARYA acertó porque tenía las señales, el historial de órdenes y el manual.</p>
+          <dl><dt>En la AI Factory</dt><dd>Dell AI Data Platform with NVIDIA: almacenamiento PowerScale y motores para preparar, indexar y buscar datos.</dd><dt class="p">En este piloto, hoy</dt><dd class="p">Historian, CMMS y 9 manuales, leídos en solo lectura.</dd></dl></section>
+        <section data-d="gest" hidden><p class="af-k">TRANSVERSAL</p><h3>Gestión y observabilidad</h3><p>Saber qué está pasando en cada GPU, red y servicio, y administrar el clúster completo.</p>
+          <dl><dt>En la AI Factory</dt><dd>NVIDIA Base Command Manager o Dell Automation Platform, y NVIDIA NetQ para la red.</dd><dt class="p">En este piloto, hoy</dt><dd class="p">La traza de ARYA, los tokens, TTFT y TPOT, y los chequeos de arya.sh.</dd></dl></section>
+        <section data-d="seg" hidden><p class="af-k">TRANSVERSAL</p><h3>Seguridad</h3><p>Atraviesa todas las capas, de afuera hacia adentro: perímetro, identidad, alta disponibilidad, datos inmutables y el propio agente.</p>
+          <dl><dt class="p">En este piloto, hoy</dt><dd class="p">Solo lectura, herramientas en lista cerrada, aprobación humana y traza de cada paso.</dd></dl>
+          <p class="af-hint">El botón "Ver cómo la protegemos" abre el detalle.</p></section>
+        <section data-d="svc" hidden><p class="af-k">TRANSVERSAL</p><h3>Dell Services</h3><p>Acompañan el ciclo completo, del primer caso de uso a la operación.</p>
+          <dl><dt>En la AI Factory</dt><dd>Estrategia, integración de racks, implementación de casos de uso y operación.</dd><dt class="p">En este piloto, hoy</dt><dd class="p">Este piloto es la primera etapa del ciclo.</dd></dl></section>
+      </aside>
+    </div>
+    <footer class="f-foot">Estructura según la Solution Brief "Dell AI Factory with NVIDIA", configuración NVIDIA 2-8-5-200 (julio de 2026), y "Dell AI Data Platform with NVIDIA" (marzo de 2026). Colores: quién aporta cada componente. Verde: lo que ya existe en este piloto.</footer>
+  </div>
+
+  <div class="prot datav dv" id="datav" hidden>
+    <header class="p-head">
+      <div><p class="kicker">DEL AGENTE A LA AI FACTORY</p><h1>¿Cómo se conecta el agente a los datos de su planta?</h1></div>
+      <p class="legend"><span class="v s1">SERIES DE TIEMPO · MEDALLÓN</span> <span class="v s2">DOCUMENTOS · RAG</span> <span class="v s3">SISTEMAS · MCP</span> · <span class="tag real">EN ESTE PILOTO</span></p>
+      <button type="button" class="close" id="data-close">VOLVER</button>
+    </header>
+    <div class="dv-grid">
+      <div class="dv-map">
+        <div class="dv-cols"><span>FUENTES DE LA PLANTA</span><span>CÓMO SE PREPARAN</span><span>QUÉ HACE EL AGENTE</span></div>
+        <div class="dv-lane l1" data-k="medallon">
+          <div class="dv-src"><span class="c">PLC / DCS</span><span class="c pilot">SCADA · OPC UA</span><span class="c pilot">Historian de procesos</span><span class="c">Sensores IIoT · MQTT</span></div>
+          <div class="dv-pipe"><i></i><i></i><i></i></div>
+          <div class="dv-prep"><b>Arquitectura medallón</b>
+            <div class="medal"><span class="m bronze">BRONCE<small>dato crudo, tal cual llegó</small></span><span class="m silver">PLATA<small>limpio, sincronizado, con su activo</small></span><span class="m gold">ORO<small>indicadores listos para usar</small></span></div>
+            <em>Piloto hoy: lee directo del historian, sin capas</em></div>
+          <div class="dv-pipe"><i></i><i></i><i></i></div>
+          <div class="dv-use"><b>Analiza el comportamiento</b><span>tendencias, correlaciones, inicio del desvío · base del predictivo</span></div>
+        </div>
+        <div class="dv-lane l2" data-k="rag">
+          <div class="dv-src"><span class="c pilot">Manuales del fabricante</span><span class="c pilot">Procedimientos</span><span class="c">P&amp;ID y planos</span><span class="c">Informes y bitácoras de turno</span></div>
+          <div class="dv-pipe"><i></i><i></i><i></i></div>
+          <div class="dv-prep"><b>RAG · recuperación con citas</b>
+            <div class="flow3"><span>Fragmentar</span><i>→</i><span>Indexar</span><i>→</i><span>Recuperar y citar</span></div>
+            <em class="ok">Piloto hoy: búsqueda por palabras en 9 manuales, con citas (sin vectores)</em></div>
+          <div class="dv-pipe"><i></i><i></i><i></i></div>
+          <div class="dv-use"><b>Busca y cita</b><span>lee solo lo pertinente y dice de qué documento lo sacó</span></div>
+        </div>
+        <div class="dv-lane l3" data-k="mcp">
+          <div class="dv-src"><span class="c pilot">CMMS / EAM</span><span class="c">MES</span><span class="c">ERP</span><span class="c">LIMS · calidad</span></div>
+          <div class="dv-pipe"><i></i><i></i><i></i></div>
+          <div class="dv-prep"><b>MCP · conector estándar</b>
+            <div class="flow3"><span>Un servidor MCP por sistema</span><i>·</i><span>Permisos de solo lectura</span></div>
+            <em>Piloto hoy: 10 herramientas propias; MCP no implementado</em></div>
+          <div class="dv-pipe"><i></i><i></i><i></i></div>
+          <div class="dv-use"><b>Consulta en el momento</b><span>órdenes, repuestos, lotes, producción</span></div>
+        </div>
+        <div class="dv-agent" data-k="agente"><div><b>AGENTE</b><span>ARYA</span></div>
+          <p>Combina los tres caminos para responder: <b>investiga, recomienda, cita y deja la orden en borrador.</b> Nunca opera la planta.</p>
+          <span class="who">→ operador · mantención · supervisor</span></div>
+        <div class="dv-ro">SIEMPRE EN SOLO LECTURA · a través de la zona intermedia · los datos no salen de la planta</div>
+      </div>
+      <aside class="af-det dv-det">
+        <section data-d="intro"><p class="af-k">CÓMO LEERLA</p><h3>Cada tipo de dato llega por su propio camino</h3>
+          <ol><li><b>Las señales</b> se ordenan en capas de calidad: arquitectura medallón.</li>
+            <li><b>Los documentos</b> se vuelven buscables: RAG.</li>
+            <li><b>Los sistemas</b> se conectan con un estándar: MCP.</li></ol>
+          <p>Todo en solo lectura. El paso 2 del piloto es construir estos caminos con los datos de ustedes.</p>
+          <p class="af-hint">Pulse un camino para ver el detalle.</p></section>
+        <section data-d="medallon" hidden><p class="af-k">SERIES DE TIEMPO</p><h3>Arquitectura medallón</h3>
+          <p>Como refinar mineral: <b>bronce</b> es lo que sale de la mina, <b>plata</b> lo procesado y <b>oro</b> lo que se usa. El agente y los modelos predictivos trabajan sobre el oro.</p>
+          <dl><dt>Bronce</dt><dd>Las señales tal como llegan del SCADA y el historian, sin tocar: sirven para auditar.</dd>
+            <dt>Plata</dt><dd>Limpias, con unidades y horas sincronizadas, asociadas a su equipo (bomba P-101, motor).</dd>
+            <dt>Oro</dt><dd>Indicadores listos: vibración promedio por día, horas de operación, tendencias. La base para anticipar fallas.</dd>
+            <dt class="p">En este piloto, hoy</dt><dd class="p">ARYA lee directo del historian de la demo: no hay capas todavía.</dd></dl></section>
+        <section data-d="rag" hidden><p class="af-k">DOCUMENTOS</p><h3>RAG: buscar antes de responder</h3>
+          <p>El modelo no se aprendió sus manuales: los <b>busca en el momento</b>, lee solo los fragmentos pertinentes y <b>cita de dónde los sacó</b>. Por eso no inventa.</p>
+          <dl><dt>Fragmentar</dt><dd>Cada documento se divide en partes pequeñas, con su título y su origen.</dd>
+            <dt>Indexar</dt><dd>Se guardan en un índice que permite buscar por palabras y por significado (vectores).</dd>
+            <dt>Recuperar y citar</dt><dd>Ante una pregunta, el agente trae los fragmentos más relevantes y cita el documento.</dd>
+            <dt class="p">En este piloto, hoy</dt><dd class="p">Búsqueda por palabras en 9 manuales y procedimientos, con citas como SOP-MNT-014. Sin vectores todavía.</dd></dl></section>
+        <section data-d="mcp" hidden><p class="af-k">SISTEMAS</p><h3>MCP: un enchufe estándar</h3>
+          <p>MCP (Model Context Protocol) es un estándar abierto para conectar herramientas a un agente, <b>como el USB para los periféricos</b>: un sistema se conecta una vez y lo puede usar cualquier agente.</p>
+          <dl><dt>Servidor MCP</dt><dd>Un conector por sistema (CMMS, MES, ERP) que expone solo las consultas permitidas.</dd>
+            <dt>Permisos</dt><dd>Se define qué puede leer cada agente; la escritura queda bloqueada o con aprobación humana.</dd>
+            <dt class="p">En este piloto, hoy</dt><dd class="p">ARYA usa 10 herramientas propias con el mismo principio de solo lectura; MCP aún no está implementado.</dd></dl></section>
+        <section data-d="agente" hidden><p class="af-k">EL RESULTADO</p><h3>El agente combina los tres caminos</h3>
+          <p>En la falla de hoy, ARYA cruzó <b>las señales</b> (la vibración subió antes que la temperatura), <b>un documento</b> (el procedimiento SOP-MNT-014) y <b>el historial de órdenes</b> (casos anteriores parecidos).</p>
+          <dl><dt class="p">Lo que vieron</dt><dd class="p">Investigó, recomendó, citó sus fuentes y dejó la orden en borrador. Una persona decidió.</dd></dl></section>
+      </aside>
+    </div>
+    <footer class="f-foot">Esquema de referencia para conversar: los sistemas y la forma de conectarlos dependen de cada planta. Verde: lo que ya existe en este piloto.</footer>
+  </div>
+
+  <div class="prot" id="prot" hidden>
+    <header class="p-head">
+      <div><p class="kicker">DEL AGENTE A LA AI FACTORY</p><h1>¿Cómo protegemos la AI Factory?</h1></div>
+      <p class="legend"><span class="tag real">EN ARYA HOY</span> funciona en esta demo · <span class="tag proj">REFERENCIA</span> enfoque de Dell, no implementado aquí</p>
+      <button type="button" class="close" id="prot-mode">VER EL DETALLE SEGÚN DELL</button>
+      <button type="button" class="close" id="prot-close">VOLVER</button>
+    </header>
+    <div class="pv" id="prot-layers">
+      <div class="rings" aria-label="Capas de protección, de afuera hacia adentro">
+        <div class="ring r1" data-l="perim"><span class="rl">1 · PERÍMETRO <i>firewall · segmentación OT · conducto de un solo sentido</i></span>
+          <div class="ring r2" data-l="ident"><span class="rl">2 · IDENTIDAD Y ACCESO <i>confianza cero · mínimo privilegio</i></span>
+            <div class="ring r3" data-l="infra"><span class="rl">3 · INFRAESTRUCTURA EN ALTA DISPONIBILIDAD <i>clúster redundante · sin puntos únicos de falla</i></span>
+              <div class="core">
+                <div class="ring r4" data-l="datos"><span class="rl">4 · DATOS</span><b>Respaldo · copia inmutable · bóveda aislada</b><small>historian · manuales · memoria · modelos · configuración</small></div>
+                <div class="ring r5" data-l="agente"><span class="rl">5 · EL AGENTE</span><b>Límites, verificación y control humano</b><small>lo nuevo que trae la IA</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="rings-note">De afuera hacia adentro. Pulse cada capa para ver el detalle.</p>
+      </div>
+      <div class="pdet">
+        <section data-d="perim"><h3>1 · Perímetro: la planta no queda expuesta</h3>
+          <p>La red de la planta (OT) y la AI Factory están en zonas separadas, con una zona intermedia y conductos controlados, según la norma IEC 62443. La IA queda del lado de afuera y solo recibe datos.</p>
+          <ul><li>Firewall y segmentación entre zonas</li><li>Zona intermedia con el gateway de datos</li><li>Conducto de un solo sentido: los datos salen de la planta, las órdenes no entran</li><li>Sin Internet en la zona de control</li></ul>
+          <em class="real">ARYA hoy: lee la planta solo a través del gateway; el servidor OPC UA rechaza escrituras; el agente no tiene el token de control.</em>
+          <em class="proj">Referencia general de la industria; el diseño concreto depende de cada planta.</em></section>
+        <section data-d="ident" hidden><h3>2 · Identidad y acceso: confianza cero</h3>
+          <p>Nadie tiene acceso solo por estar dentro de la red. Cada persona, agente y servicio tiene su propia credencial y solo los permisos que necesita.</p>
+          <ul><li>Una credencial distinta por persona, agente y servicio</li><li>Mínimo privilegio, con permisos que se revisan</li><li>Registro de quién hizo qué y cuándo</li></ul>
+          <em class="real">ARYA hoy: el agente crea borradores con su propia clave, pero aprobar exige un token humano que el agente no tiene.</em></section>
+        <section data-d="infra" hidden><h3>3 · Infraestructura en alta disponibilidad</h3>
+          <p>Si un equipo falla, el servicio sigue: la plataforma se diseña sin puntos únicos de falla.</p>
+          <ul><li>Varios servidores PowerEdge en clúster: si uno cae, la carga pasa a los otros</li><li>Fuentes de poder y conexiones de red duplicadas</li><li>Kubernetes reinicia y reparte los servicios automáticamente</li><li>PowerScale tolera la falla de discos y de nodos sin perder datos</li><li>PowerEdge arranca solo con firmware verificado: raíz de confianza en el silicio</li></ul>
+          <em class="proj">En este piloto hay una sola GB10, sin redundancia. En producción se diseña en alta disponibilidad.</em></section>
+        <section data-d="datos" hidden><h3>4 · Datos: siempre poder volver a una copia limpia</h3>
+          <p>Lo más valioso de la plataforma: el historian, los manuales, la memoria del agente, los modelos y la configuración. Si un ataque los cifra o los borra, se recupera desde una copia sana.</p>
+          <div class="rule">3 copias · 2 medios distintos · 1 fuera del sitio · 1 inmutable y aislada</div>
+          <ol class="chain">
+            <li><b>Producción</b><span>Datos de la plataforma en PowerScale</span></li>
+            <li><b>Respaldo</b><span>PowerProtect Data Manager: respaldos automáticos según políticas</span></li>
+            <li><b>Copia inmutable</b><span>PowerProtect Data Domain: nadie puede borrarla ni cambiarla durante su plazo</span></li>
+            <li class="vault"><b>Bóveda aislada</b><span>PowerProtect Cyber Recovery: copia desconectada de la red; CyberSense detecta datos corrompidos</span></li>
+            <li><b>Recuperación limpia</b><span>Se restaura desde la última copia verificada como sana</span></li>
+          </ol>
+          <em class="proj">Referencia de Dell; no implementado en esta demo.</em></section>
+        <section data-d="agente" hidden><h3>5 · El agente: lo nuevo que hay que proteger</h3>
+          <p>Además de proteger los datos, hay que limitar lo que el agente puede hacer, revisar lo que le entra y lo que dice, y dejar todo registrado.</p>
+          <ul class="checks">
+            <li class="ok"><b>Qué puede hacer:</b> herramientas en lista cerrada y de solo lectura, sin acceso al control</li>
+            <li class="ok"><b>Qué le entra:</b> no obedece pedidos de operar la planta, ni siquiera con «olvida tus reglas»</li>
+            <li class="ok"><b>Qué dice:</b> verifica las órdenes, fechas y documentos que cita; si no los consultó, lo corrige o lo marca</li>
+            <li class="ok"><b>Quién decide:</b> solo crea borradores; una persona aprueba</li>
+            <li class="ok"><b>Qué queda registrado:</b> la traza de cada paso, con herramienta, fuente y tiempo</li>
+            <li class="ref"><b>Su propia protección:</b> respaldar el modelo, las reglas, la memoria y la configuración, y vigilar el servicio del modelo en ejecución (por ejemplo, CrowdStrike Falcon con detecciones para NIM, según Dell)</li>
+          </ul>
+          <em class="real">En verde, lo que ARYA ya hace en esta demo; el último punto es referencia.</em></section>
+      </div>
+    </div>
+    <footer class="f-foot" id="prot-layers-foot">Arquitectura de referencia para conversar; el diseño de cada planta requiere su propio análisis de riesgos. En verde, lo que ARYA ya hace en esta demo.</footer>
+    <div id="prot-dell" hidden>
+    <div class="p-grid">
+      <div class="mx">
+        <div class="mx-ot" data-layer="ot"><b>Segmentación OT · IEC 62443</b><span>Norma industrial que complementa el enfoque de Dell: la planta en su zona, la IA fuera de ella y un conducto de un solo sentido.</span><em class="real">ARYA hoy: lee solo a través del gateway · OPC UA rechaza escrituras</em></div>
+        <div class="mx-head"><span>Capa de la AI Factory</span><b>PROTEGER</b><b>DETECTAR</b><b>RECUPERAR</b></div>
+        <div class="mx-row" data-layer="infra"><h3>Infraestructura modular<small>PowerEdge XE7745 · R670 · red · estaciones</small></h3>
+          <div class="c"><p>Arquitectura ciberresiliente PowerEdge: raíz de confianza en el silicio, arranque seguro, firmware firmado, verificación de componentes de fábrica</p><p>Bloqueo del sistema con iDRAC*</p></div>
+          <div class="c"><p>iDRAC verifica el firmware en cada arranque</p><p>CrowdStrike Falcon también en Dell Pro Max GB10 y estaciones de trabajo</p></div>
+          <div class="c"><p>Respuesta a incidentes y recuperación: servicio Dell con playbooks para IA</p></div></div>
+        <div class="mx-row" data-layer="data"><h3>Datos<small>historian · documentos · memoria · modelos</small></h3>
+          <div class="c"><p>PowerProtect Data Manager y PowerProtect Data Domain: copias inmutables</p><p>PowerScale Cybersecurity Suite para los datos no estructurados</p></div>
+          <div class="c"><p>CyberSense analiza las copias y detecta corrupción por ransomware</p><p>Validación automática de los respaldos</p></div>
+          <div class="c"><p>PowerProtect Cyber Recovery: bóveda aislada de la red</p><p>Recuperación orquestada y reconstrucción de datasets</p></div></div>
+        <div class="mx-row" data-layer="runtime"><h3>Ejecución<small>NIM · contenedores · GPU</small></h3>
+          <div class="c"><p>Cómputo confidencial (Fortanix): datos y modelo protegidos mientras se ejecutan</p><p>NVIDIA OpenShell: entorno aislado con políticas para agentes</p></div>
+          <div class="c"><p>CrowdStrike Falcon con detecciones para NVIDIA NIM y NeMo</p><p>Detección y respuesta gestionada (MDR) de Dell, 24×7</p></div>
+          <div class="c"><p>Restaurar el estado de las cargas de IA</p><p>Resiliencia operativa: probar la continuidad de la AI Factory</p></div></div>
+        <div class="mx-row" data-layer="work"><h3>Cargas de trabajo<small>agentes y modelos</small></h3>
+          <div class="c"><p>Confianza cero y mínimo privilegio para cada agente y servicio</p><em class="real">ARYA hoy: herramientas en lista cerrada y de solo lectura; aprobar una orden exige un token humano</em></div>
+          <div class="c"><p>Inyección de instrucciones, fuga de datos, IA no autorizada, salidas indebidas</p><p>Pruebas de penetración para IA</p><em class="real">ARYA hoy: traza de cada paso y verificación de lo que cita</em></div>
+          <div class="c"><p>Restaurar modelos, configuración y parámetros desde copias limpias</p></div></div>
+        <div class="mx-svc" data-layer="svc"><b>Servicios Dell de seguridad y resiliencia para IA</b><span>Asesoría · CISO virtual para IA · seguridad de datos · endurecimiento de la AI Factory · MDR · pruebas de penetración · respuesta a incidentes y recuperación</span></div>
+      </div>
+      <div class="layers" id="layers">
+        <button type="button" class="layer" data-layer="ot"><b>Segmentación OT</b><span>La planta no queda expuesta: zonas y conductos según IEC 62443, con la IA del lado de afuera.</span>
+          <em class="real">En ARYA hoy: el agente no tiene el token de control y no existe ninguna herramienta de escritura.</em></button>
+        <button type="button" class="layer" data-layer="infra"><b>Infraestructura modular</b><span>Una cadena de confianza desde el silicio: el servidor solo arranca con firmware de Dell verificado.</span>
+          <em class="proj">Referencia: no implementado en esta demo.</em></button>
+        <button type="button" class="layer" data-layer="data"><b>Datos</b><span>Datos de origen, modelos con sus datos de entrenamiento y parámetros, y el registro de preguntas y respuestas: copias inmutables y una bóveda aislada.</span>
+          <em class="proj">Referencia: no implementado en esta demo.</em></button>
+        <button type="button" class="layer" data-layer="runtime"><b>Ejecución</b><span>Protege el modelo y los datos mientras corren, y vigila los servicios de inferencia.</span>
+          <em class="proj">Referencia: no implementado en esta demo.</em></button>
+        <button type="button" class="layer" data-layer="work"><b>Cargas de trabajo</b><span>Los riesgos propios de la IA: instrucciones maliciosas, datos envenenados, manipulación del modelo.</span>
+          <em class="real">En ARYA hoy: se negó a operar equipos incluso con "olvida tus reglas"; verifica las órdenes y fechas que cita.</em></button>
+        <button type="button" class="layer" data-layer="svc"><b>Servicios</b><span>Del diagnóstico al monitoreo 24×7 y la recuperación ante un incidente.</span>
+          <em class="proj">Referencia: oferta de Dell Services.</em></button>
+      </div>
+    </div>
+    <footer class="f-foot">Según Dell: AI Security and Resilience Datasheet (octubre de 2026), "Securing Your AI Workloads with Dell AI Factory with NVIDIA" (mayo de 2026) y Cyber Resilient Data Protection for AI.
+      * En el XE7745, el bloqueo del sistema y el cifrado con discos SED figuran como futuras versiones. La franja OT sigue IEC 62443 y no forma parte de los documentos de Dell.
+      Cada planta requiere su propio análisis de riesgos.</footer>
+    </div>
+  </div>
+  <footer class="f-foot">Proyección orientativa para conversar el dimensionamiento; no reemplaza un estudio de capacidad.</footer>
+  <script src="/static/factory.js"></script>
+</body>
+</html>

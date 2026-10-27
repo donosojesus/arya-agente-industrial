@@ -1,0 +1,220 @@
+# ARYA Industrial Demo - etapa 1: planta simulada P-101 + SCADA inicial (notebook).
+# Preparacion (con Internet):  scripts/start-demo --build
+# Arranque offline:            scripts/start-demo      (usa --no-build --pull never)
+name: arya-industrial-demo
+
+x-arya-common: &arya-common
+  init: true
+  restart: unless-stopped
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  networks: [ot]
+  logging:
+    driver: json-file
+    options: {max-size: "5m", max-file: "3"}
+  labels:
+    com.arya.project: arya-industrial-demo
+
+services:
+  plant:
+    <<: *arya-common
+    build:
+      context: .
+      dockerfile: docker/plant.Dockerfile
+    image: arya-industrial-demo/plant:0.1.0
+    container_name: arya-plant
+    environment:
+      OPCUA_ENDPOINT: opc.tcp://0.0.0.0:4840/arya/plant/
+      CONTROL_HOST: 0.0.0.0
+      CONTROL_PORT: "9001"
+      DEMO_CONTROL_TOKEN: ${DEMO_CONTROL_TOKEN:?Falta .env con DEMO_CONTROL_TOKEN - ejecute scripts/start-demo}
+      CONTROL_ALLOWED_ORIGINS: http://127.0.0.1:${SCADA_PORT:-8080},http://localhost:${SCADA_PORT:-8080}
+      FAULT_DURATION_SECONDS: ${FAULT_DURATION_SECONDS:-180}
+      RECOVERY_SECONDS: ${RECOVERY_SECONDS:-90}
+      TICK_SECONDS: ${TICK_SECONDS:-0.5}
+      PLANT_VIEW_URL: http://plant-view:8080
+    ports:
+      # API de control del presentador: SIEMPRE solo en loopback del notebook.
+      - "127.0.0.1:${CONTROL_PORT:-9001}:9001"
+      # OPC UA de solo lectura: loopback por defecto.
+      - "${OPCUA_BIND:-127.0.0.1}:${OPCUA_PORT:-4840}:4840"
+    healthcheck:
+      test: ["CMD", "python", "-m", "arya_plant.healthcheck"]
+      # Abre un cliente OPC UA real (cuesta CPU): rapido solo durante el arranque.
+      interval: 30s
+      timeout: 12s
+      retries: 3
+      start_period: 20s
+      start_interval: 3s
+
+  plant-view:
+    <<: *arya-common
+    build:
+      context: .
+      dockerfile: docker/plant-view.Dockerfile
+    image: arya-industrial-demo/plant-view:0.1.0
+    container_name: arya-plant-view
+    depends_on:
+      plant:
+        condition: service_healthy
+    environment:
+      # Unica fuente de datos: el servidor OPC UA de la planta. Sin token de control.
+      OPCUA_ENDPOINT: opc.tcp://plant:4840/arya/plant/
+      VIEW_HOST: 0.0.0.0
+      VIEW_PORT: "8080"
+      SAMPLE_SECONDS: ${SAMPLE_SECONDS:-1}
+      STALE_AFTER_SECONDS: ${STALE_AFTER_SECONDS:-5}
+      CONTROL_PUBLIC_PORT: ${CONTROL_PORT:-9001}
+    ports:
+      - "${SCADA_BIND:-127.0.0.1}:${SCADA_PORT:-8080}:8080"
+    healthcheck:
+      test: ["CMD", "python", "-m", "arya_plant_view.healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  ot-gateway:
+    <<: *arya-common
+    build:
+      context: .
+      dockerfile: docker/ot-gateway.Dockerfile
+    image: arya-industrial-demo/ot-gateway:0.1.0
+    container_name: arya-ot-gateway
+    depends_on:
+      plant:
+        condition: service_healthy
+    environment:
+      # Historian + API de solo lectura. Unica fuente: el servidor OPC UA. Sin token de control.
+      OPCUA_ENDPOINT: opc.tcp://plant:4840/arya/plant/
+      GATEWAY_HOST: 0.0.0.0
+      GATEWAY_PORT: "8081"
+      HISTORIAN_PATH: /data/historian.sqlite3
+      HISTORIAN_RETENTION_DAYS: ${HISTORIAN_RETENTION_DAYS:-7}
+      SAMPLE_SECONDS: ${SAMPLE_SECONDS:-1}
+      STALE_AFTER_SECONDS: ${STALE_AFTER_SECONDS:-5}
+    ports:
+      # Loopback por defecto. Para el agente en la GB10 se cambiara GATEWAY_BIND a la IP del cable.
+      - "${GATEWAY_BIND:-127.0.0.1}:${GATEWAY_PORT:-8081}:8081"
+    volumes:
+      - historian:/data
+    healthcheck:
+      test: ["CMD", "python", "-m", "arya_ot_gateway.healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  cmms:
+    <<: *arya-common
+    build:
+      context: .
+      dockerfile: docker/cmms.Dockerfile
+    image: arya-industrial-demo/cmms:0.1.0
+    container_name: arya-cmms
+    environment:
+      CMMS_HOST: 0.0.0.0
+      CMMS_PORT: "8082"
+      CMMS_DB_PATH: /data/cmms.sqlite3
+      CMMS_AGENT_KEY: ${CMMS_AGENT_KEY:?Falta CMMS_AGENT_KEY en .env - ejecute scripts/start-demo}
+      CMMS_APPROVER_TOKEN: ${CMMS_APPROVER_TOKEN:?Falta CMMS_APPROVER_TOKEN en .env - ejecute scripts/start-demo}
+      CMMS_ALLOWED_ORIGINS: http://127.0.0.1:${SCADA_PORT:-8080},http://localhost:${SCADA_PORT:-8080}
+    ports:
+      - "${CMMS_BIND:-127.0.0.1}:${CMMS_PORT:-8082}:8082"
+    volumes:
+      - cmms:/data
+    healthcheck:
+      test: ["CMD", "python", "-m", "arya_cmms.healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  agent:
+    <<: *arya-common
+    build:
+      context: .
+      dockerfile: docker/agent.Dockerfile
+    image: arya-industrial-demo/agent:0.1.0
+    container_name: arya-agent
+    depends_on:
+      ot-gateway:
+        condition: service_healthy
+      cmms:
+        condition: service_healthy
+    environment:
+      # ARYA: solo lectura sobre el proceso. Ve la planta unicamente por el gateway; no tiene el token de control.
+      AGENT_HOST: 0.0.0.0
+      AGENT_PORT: "8091"
+      AGENT_NODE_LABEL: ${AGENT_NODE_LABEL:-Notebook (desarrollo)}
+      NEMOTRON_BASE_URL: ${NEMOTRON_BASE_URL:-}
+      NEMOTRON_MODEL: ${NEMOTRON_MODEL:-}
+      NEMOTRON_API_KEY: ${NEMOTRON_API_KEY:-}
+      LLM_THINKING: ${LLM_THINKING:-off}
+      LLM_STREAM: ${LLM_STREAM:-on}
+      GATEWAY_URL: http://ot-gateway:8081
+      CMMS_URL: http://cmms:8082
+      CMMS_AGENT_KEY: ${CMMS_AGENT_KEY:?Falta CMMS_AGENT_KEY en .env - ejecute scripts/start-demo}
+      AGENT_ADMIN_TOKEN: ${AGENT_ADMIN_TOKEN:?Falta AGENT_ADMIN_TOKEN en .env - ejecute scripts/start-demo}
+      AGENT_DATA_DIR: /data
+      DOCUMENTS_DIR: /app/data/documents
+      AGENT_PROACTIVE: ${AGENT_PROACTIVE:-off}
+    ports:
+      - "127.0.0.1:${AGENT_PORT:-8091}:8091"
+    volumes:
+      - agent:/data
+    healthcheck:
+      test: ["CMD", "python", "-m", "arya_agent.healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+  demo-ui:
+    <<: *arya-common
+    build:
+      context: .
+      dockerfile: docker/demo-ui.Dockerfile
+    image: arya-industrial-demo/demo-ui:0.1.0
+    container_name: arya-demo-ui
+    environment:
+      # Pantalla dividida. Reenvia al agente y al CMMS solo las rutas que la pantalla necesita.
+      UI_HOST: 0.0.0.0
+      UI_PORT: "8090"
+      AGENT_URL: ${AGENT_URL:-http://agent:8091}
+      CMMS_URL: http://cmms:8082
+      CONTROL_URL: http://plant:9001
+      GATEWAY_URL: http://ot-gateway:8081
+      # Habilita SIMULAR FALLA / VOLVER A NORMAL en la pantalla sin pedir el token al navegador.
+      DEMO_CONTROL_TOKEN: ${DEMO_CONTROL_TOKEN:?Falta .env con DEMO_CONTROL_TOKEN - ejecute scripts/start-demo}
+      PLANT_VIEW_PUBLIC_PORT: ${SCADA_PORT:-8080}
+    ports:
+      - "127.0.0.1:${UI_PORT:-8090}:8090"
+    healthcheck:
+      test: ["CMD", "python", "-m", "arya_ui.healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+volumes:
+  agent:
+    name: arya-agent
+    labels:
+      com.arya.project: arya-industrial-demo
+  historian:
+    name: arya-historian
+    labels:
+      com.arya.project: arya-industrial-demo
+  cmms:
+    name: arya-cmms
+    labels:
+      com.arya.project: arya-industrial-demo
+
+networks:
+  ot:
+    name: arya-ot
+    labels:
+      com.arya.project: arya-industrial-demo

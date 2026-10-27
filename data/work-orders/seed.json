@@ -1,0 +1,47 @@
+[
+  {
+    "id": "WO-2025-0907", "asset": "P-101", "type": "PREVENTIVE", "priority": "LOW", "status": "CLOSED",
+    "opened_at": "2025-11-18", "closed_at": "2025-11-19",
+    "title": "Mantención preventiva semestral",
+    "problem": "Mantención programada según plan semestral del fabricante.",
+    "findings": "Alineamiento motor-bomba dentro de tolerancia. Sello mecánico sin fugas. Pernos de anclaje con torque correcto.",
+    "actions": "Relubricación de rodamientos lado acople y lado libre con grasa especificada. Limpieza de filtro de succión STR-101. Medición de vibración de referencia: 1,9 mm/s.",
+    "technician": "M. Rojas"
+  },
+  {
+    "id": "WO-2026-0142", "asset": "P-101", "type": "CORRECTIVE", "priority": "HIGH", "status": "CLOSED",
+    "opened_at": "2026-03-04", "closed_at": "2026-03-05",
+    "title": "Vibración elevada con aumento de temperatura",
+    "problem": "Alarma de vibración alta en P-101 (5,8 mm/s) con temperatura de motor en aumento sostenido. Caudal y presión casi sin cambio.",
+    "findings": "Se detectó lubricación insuficiente del rodamiento lado acople: grasa degradada y endurecida. Pista del rodamiento sin daño visible.",
+    "actions": "Se realizó limpieza y relubricación del rodamiento y verificación de alineamiento. Vibración posterior: 2,1 mm/s. Se recomienda acortar el intervalo de lubricación de 6 a 4 meses.",
+    "technician": "C. Fuentes"
+  },
+  {
+    "id": "WO-2026-0281", "asset": "P-101", "type": "CORRECTIVE", "priority": "MEDIUM", "status": "CLOSED",
+    "opened_at": "2026-05-22", "closed_at": "2026-05-22",
+    "title": "Temperatura de motor elevada sin vibración",
+    "problem": "Temperatura de motor en 76 °C con vibración normal (2,0 mm/s) y corriente normal.",
+    "findings": "Rejilla del ventilador del motor obstruida por polvo y fibras. Rodamientos en buen estado.",
+    "actions": "Se inspeccionó y limpió el sistema de enfriamiento del motor. Temperatura posterior: 58 °C.",
+    "technician": "M. Rojas"
+  },
+  {
+    "id": "WO-2026-0317", "asset": "P-101", "type": "CORRECTIVE", "priority": "HIGH", "status": "CLOSED",
+    "opened_at": "2026-07-09", "closed_at": "2026-07-09",
+    "title": "Caída de caudal y presión de descarga",
+    "problem": "Caudal bajó de 62 a 47 m³/h con caída de presión de descarga. Corriente de motor menor a la normal. Temperatura sin cambio. Ruido irregular en la bomba.",
+    "findings": "Filtro de succión STR-101 parcialmente obstruido por sólidos. Indicios de cavitación incipiente.",
+    "actions": "Se aplicó bloqueo, se retiró y limpió el filtro de succión STR-101. Caudal posterior: 62 m³/h. Se recomienda inspección mensual del filtro.",
+    "technician": "C. Fuentes"
+  },
+  {
+    "id": "WO-2026-0355", "asset": "P-102", "type": "CORRECTIVE", "priority": "MEDIUM", "status": "CLOSED",
+    "opened_at": "2026-08-14", "closed_at": "2026-08-16",
+    "title": "Fuga en sello mecánico",
+    "problem": "Goteo visible en el sello mecánico de la bomba de respaldo P-102.",
+    "findings": "Caras del sello desgastadas.",
+    "actions": "Reemplazo del sello mecánico y prueba de estanqueidad.",
+    "technician": "J. Paredes"
+  }
+]

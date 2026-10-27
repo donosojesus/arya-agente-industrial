@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" font-family="Segoe UI, Arial, sans-serif">
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1f2a36"/></marker>
+    <marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerUnits="userSpaceOnUse" markerWidth="13" markerHeight="13" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c98a00"/></marker>
+    <style>
+      .t{font-size:30px;font-weight:800;fill:#10161d;letter-spacing:1px}.st{font-size:16px;fill:#4a5663}
+      .sec{font-size:15px;font-weight:800;fill:#10161d;letter-spacing:1.5px}
+      .box{fill:#ffffff;stroke:#1f2a36;stroke-width:2}
+      .pend{fill:#fff8e1;stroke:#c98a00;stroke-width:2;stroke-dasharray:8 5}
+      .no{fill:#e9ebee;stroke:#7c8792;stroke-width:2;stroke-dasharray:3 5}
+      .never{fill:#fdecea;stroke:#b3261e;stroke-width:2.5}
+      .h{font-size:15px;font-weight:700;fill:#10161d}.p{font-size:13px;fill:#3a4653}.m{font-size:12.5px;fill:#1c4f82;font-family:Consolas,monospace}
+      .tagp{font-size:11.5px;font-weight:800;fill:#8a5f00;letter-spacing:.5px}.tagn{font-size:11.5px;font-weight:800;fill:#5b6876;letter-spacing:.5px}.tagx{font-size:11.5px;font-weight:800;fill:#b3261e;letter-spacing:.5px}
+      .hn{font-size:15px;font-weight:700;fill:#5b6876}.pn{font-size:13px;fill:#5b6876}
+      .seg{fill:#eef3f8;stroke:#7fa6c9;stroke-width:1.5}
+      .chip{fill:#ffffff;stroke:#1f2a36;stroke-width:1.5}.ct{font-size:12.5px;fill:#10161d}
+      .ln{stroke:#1f2a36;stroke-width:2.5;fill:none}.lnp{stroke:#c98a00;stroke-width:2.5;fill:none;stroke-dasharray:8 5}
+      .lb{font-size:12.5px;fill:#10161d;font-weight:700}
+      .num{fill:#10161d}.nt{font-size:15px;font-weight:800;fill:#ffffff}
+    </style>
+  </defs>
+  <rect width="1920" height="1080" fill="#f6f7f9"/>
+  <text class="t" x="40" y="46">ARYA · Anatomía del agente</text>
+  <text class="st" x="40" y="72">Recorrido de una pregunta por dentro del agente · lo que ARYA tiene y lo que esta demo no implementa · estado al 20 de octubre de 2026</text>
+
+  <!-- ENTRADAS -->
+  <text class="sec" x="40" y="112">ENTRADAS</text>
+  <rect class="box" x="40" y="124" width="250" height="78" rx="8"/><text class="h" x="54" y="150">Pregunta del operador</text><text class="p" x="54" y="170">Texto escrito o botón de pregunta</text><text class="p" x="54" y="188">sugerida en la pantalla</text>
+  <rect class="box" x="40" y="214" width="250" height="78" rx="8"/><text class="h" x="54" y="240">Voz → texto (HABLAR)</text><text class="p" x="54" y="260">Reconocedor local de Windows</text><text class="p" x="54" y="278">Prioriza las preguntas del guion</text>
+  <rect class="box" x="40" y="304" width="250" height="96" rx="8"/><text class="h" x="54" y="330">Aviso automático</text><text class="p" x="54" y="350">Un vigilante detecta una alarma</text><text class="p" x="54" y="368">nueva y hace que ARYA intervenga</text><text class="p" x="54" y="386">sin que nadie pregunte</text>
+  <path class="ln" d="M290 262 H326" marker-end="url(#ah)"/>
+  <circle class="num" cx="308" cy="238" r="13"/><text class="nt" x="308" y="243" text-anchor="middle">1</text>
+
+  <g transform="translate(-60 0)">
+  <!-- VENTANA DE CONTEXTO -->
+  <rect x="390" y="96" width="700" height="350" rx="10" fill="#ffffff" stroke="#1f2a36" stroke-width="3"/>
+  <circle class="num" cx="414" cy="122" r="13"/><text class="nt" x="414" y="127" text-anchor="middle">2</text>
+  <text class="sec" x="436" y="127">VENTANA DE CONTEXTO · lo que el modelo ve en cada paso</text>
+  <rect class="seg" x="408" y="142" width="664" height="52" rx="6"/><text class="h" x="420" y="164">Prompt de sistema (instrucciones fijas)</text><text class="p" x="420" y="183">Rol y 5 reglas: solo lectura · no inventar · advertir datos no vigentes · órdenes solo en borrador · citar fuentes</text>
+  <rect class="seg" x="408" y="200" width="664" height="52" rx="6"/><text class="h" x="420" y="222">Memoria de corto plazo</text><text class="p" x="420" y="241">Las últimas 6 preguntas con sus respuestas de esta conversación · vive en memoria RAM · se borra al reiniciar</text>
+  <rect class="seg" x="408" y="258" width="664" height="34" rx="6"/><text class="h" x="420" y="280">Pregunta actual</text>
+  <rect class="seg" x="408" y="298" width="664" height="52" rx="6"/><text class="h" x="420" y="320">Definición de las 10 herramientas</text><text class="p" x="420" y="339">Nombre, descripción y esquema de argumentos de cada una; el modelo solo puede pedir las de esta lista</text>
+  <rect class="seg" x="408" y="356" width="664" height="52" rx="6"/><text class="h" x="420" y="378">Resultados de herramientas de esta pregunta</text><text class="p" x="420" y="397">Datos reales o un error explícito · máximo 6.000 caracteres por resultado · se descartan al terminar la pregunta</text>
+  <text x="420" y="431" font-size="12" font-weight="700" fill="#1c4f82">Límite del modelo: 32.000 tokens · la pantalla muestra cuánto se usa en cada paso</text>
+
+  <!-- MODELO -->
+  <path class="ln" d="M740 446 V478" marker-end="url(#ah)"/>
+  <rect x="390" y="482" width="700" height="104" rx="10" fill="#76b900"/>
+  <circle class="num" cx="414" cy="508" r="13"/><text class="nt" x="414" y="513" text-anchor="middle">3</text>
+  <text x="436" y="514" font-size="18" font-weight="800" fill="#0b1400">MODELO · NVIDIA Nemotron en la Dell Pro Max GB10</text>
+  <text x="408" y="540" font-size="13.5" fill="#0b1400">Razona sobre el contexto y decide: pedir una o más herramientas, o redactar la respuesta final.</text>
+  <text x="408" y="560" font-size="13.5" fill="#0b1400">Es la única pieza no determinista. No ejecuta nada por sí mismo: solo pide.</text>
+  <text x="408" y="578" font-size="11.5" font-weight="800" fill="#0b1400" letter-spacing=".5">CONECTADO Y PROBADO · NIM nvidia/nemotron-3-nano · streaming para medir TTFT y TPOT</text>
+
+  <!-- ENVOLTORIO -->
+  <path class="ln" d="M740 586 V618" marker-end="url(#ah)"/><text class="lb" x="752" y="607">pide herramientas</text>
+  <rect x="390" y="622" width="700" height="186" rx="10" fill="#ffffff" stroke="#1f2a36" stroke-width="3"/>
+  <circle class="num" cx="414" cy="648" r="13"/><text class="nt" x="414" y="653" text-anchor="middle">4</text>
+  <text class="sec" x="436" y="653">GUARDRAILS · envoltorio determinista (código, no modelo)</text>
+  <g>
+    <rect class="chip" x="408" y="666" width="160" height="34" rx="6"/><text class="ct" x="488" y="688" text-anchor="middle">Siempre consulta datos</text>
+    <rect class="chip" x="576" y="666" width="160" height="34" rx="6"/><text class="ct" x="656" y="688" text-anchor="middle">Lista cerrada · valida</text>
+    <rect class="chip" x="744" y="666" width="160" height="34" rx="6"/><text class="ct" x="824" y="688" text-anchor="middle">8 herramientas · 6 pasos</text>
+    <rect class="chip" x="912" y="666" width="160" height="34" rx="6"/><text class="ct" x="992" y="688" text-anchor="middle">8 s · 2 min por pregunta</text>
+    <rect class="chip" x="408" y="708" width="160" height="34" rx="6"/><text class="ct" x="488" y="730" text-anchor="middle">Verifica citas y fechas</text>
+    <rect class="chip" x="576" y="708" width="160" height="34" rx="6"/><text class="ct" x="656" y="730" text-anchor="middle">Borradores solo a pedido</text>
+    <rect class="chip" x="744" y="708" width="160" height="34" rx="6"/><text class="ct" x="824" y="730" text-anchor="middle">Se niega a operar equipos</text>
+    <rect class="chip" x="912" y="708" width="160" height="34" rx="6"/><text class="ct" x="992" y="730" text-anchor="middle">Sin modelo: aviso fijo</text>
+  </g>
+  <rect class="no" x="408" y="752" width="664" height="44" rx="6"/><text class="hn" x="420" y="771">Modelo de guardrails de contenido</text><text class="pn" x="420" y="789">Filtro de entradas y salidas con un segundo modelo</text><text class="tagn" x="1060" y="779" text-anchor="end">NO IMPLEMENTADO EN ESTA DEMO</text>
+
+  </g>
+  <!-- flechas del ciclo -->
+  <path class="ln" d="M1030 700 H1136" marker-end="url(#ah)"/><text class="lb" x="1085" y="690" text-anchor="middle">ejecuta</text>
+  <path class="ln" d="M1140 382 H1034" marker-end="url(#ah)"/>
+  <circle class="num" cx="1085" cy="356" r="13"/><text class="nt" x="1085" y="361" text-anchor="middle">5</text>
+  <text class="lb" x="1085" y="412" text-anchor="middle">vuelven</text><text class="lb" x="1085" y="428" text-anchor="middle">al contexto</text>
+  <text class="lb" x="1085" y="530" text-anchor="middle">ciclo</text><text class="lb" x="1085" y="546" text-anchor="middle">2 → 5</text><text class="p" x="1085" y="564" text-anchor="middle">hasta</text><text class="p" x="1085" y="580" text-anchor="middle">responder</text>
+
+  <!-- HERRAMIENTAS -->
+  <rect x="1140" y="96" width="740" height="712" rx="10" fill="#ffffff" stroke="#1f2a36" stroke-width="3"/>
+  <text class="sec" x="1158" y="127">HERRAMIENTAS · funciones propias con contrato, validación y tiempo máximo</text>
+
+  <rect class="box" x="1158" y="140" width="704" height="76" rx="6"/><text class="h" x="1170" y="162">Planta en vivo</text><text class="p" x="1850" y="162" text-anchor="end">OPC UA, a través del gateway de lectura</text>
+  <text class="m" x="1170" y="184">get_current_tags · get_equipment_status · get_active_alarms</text><text class="p" x="1170" y="204">Valores actuales con su calidad, estado del equipo y alarmas con límite y hora</text>
+
+  <rect class="box" x="1158" y="224" width="704" height="76" rx="6"/><text class="h" x="1170" y="246">Historian</text><text class="p" x="1850" y="246" text-anchor="end">Base local de series de tiempo (SQLite)</text>
+  <text class="m" x="1170" y="268">get_historian_data · compare_signals</text><text class="p" x="1170" y="288">Tendencia, cambio porcentual, inicio de la desviación y cuál señal se desvió primero</text>
+
+  <rect class="box" x="1158" y="308" width="704" height="118" rx="6"/><text class="h" x="1170" y="330">RAG · documentación de planta</text><text class="p" x="1850" y="330" text-anchor="end">9 documentos locales</text>
+  <text class="m" x="1170" y="352">search_maintenance_documents</text><text class="p" x="1170" y="372">Recupera fragmentos por búsqueda de palabras (BM25) y cita el identificador del documento</text>
+  <rect class="no" x="1170" y="382" width="680" height="34" rx="5"/><text class="pn" x="1180" y="404" font-weight="700">Embeddings y base de datos vectorial (búsqueda semántica)</text><text class="tagn" x="1840" y="404" text-anchor="end">NO IMPLEMENTADO EN ESTA DEMO</text>
+
+  <rect class="box" x="1158" y="434" width="704" height="76" rx="6"/><text class="h" x="1170" y="456">CMMS · órdenes de trabajo</text><text class="p" x="1850" y="456" text-anchor="end">Sistema de mantenimiento simulado</text>
+  <text class="m" x="1170" y="478">search_previous_work_orders · get_work_order · create_work_order_draft</text><text class="p" x="1170" y="498">Lee el historial y crea órdenes solo como BORRADOR; no puede aprobarlas</text>
+
+  <rect class="box" x="1158" y="518" width="704" height="76" rx="6"/><text class="h" x="1170" y="540">Memoria de largo plazo</text><text class="p" x="1850" y="540" text-anchor="end">Base local persistente (SQLite)</text>
+  <text class="m" x="1170" y="562">search_agent_memory</text><text class="p" x="1170" y="582">Incidentes investigados, órdenes creadas y decisiones humanas ya verificadas en el CMMS</text>
+
+  <rect class="no" x="1158" y="602" width="704" height="92" rx="6"/><text class="hn" x="1170" y="624">MCP · Model Context Protocol</text><text class="tagn" x="1850" y="624" text-anchor="end">NO IMPLEMENTADO EN ESTA DEMO</text>
+  <text class="pn" x="1170" y="646">Estándar para exponer herramientas y datos a cualquier agente mediante servidores reutilizables.</text>
+  <text class="pn" x="1170" y="664">Aquí las herramientas son funciones propias que llaman al gateway y al CMMS. En un piloto, el</text>
+  <text class="pn" x="1170" y="682">gateway y el CMMS se publicarían como servidores MCP, sin cambiar el resto del agente.</text>
+
+  <rect class="never" x="1158" y="702" width="704" height="94" rx="6"/><text x="1170" y="724" font-size="15" font-weight="800" fill="#7a1b14">Herramientas de escritura al proceso</text><text class="tagx" x="1850" y="724" text-anchor="end">NO EXISTEN, POR DISEÑO</text>
+  <text x="1170" y="746" font-size="13" fill="#5c1712">Ninguna herramienta arranca, detiene ni ajusta equipos. Además el agente no tiene el token de control,</text>
+  <text x="1170" y="764" font-size="13" fill="#5c1712">el gateway solo acepta lectura y el servidor OPC UA rechaza escrituras.</text>
+  <text x="1170" y="784" font-size="13" font-weight="700" fill="#5c1712">El sistema de control gobierna la planta; ARYA observa, analiza y recomienda.</text>
+
+  <!-- SALIDAS -->
+  <path class="ln" d="M330 534 H306 V840" marker-end="url(#ah)"/><text class="lb" x="294" y="620" text-anchor="end">redacta la</text><text class="lb" x="294" y="636" text-anchor="end">respuesta</text>
+  <text class="sec" x="40" y="832">SALIDAS</text>
+  <rect class="box" x="40" y="844" width="400" height="104" rx="8"/><circle class="num" cx="62" cy="868" r="13"/><text class="nt" x="62" y="873" text-anchor="middle">6</text>
+  <text class="h" x="84" y="873">Respuesta con fuentes</text><text class="p" x="54" y="898">Texto breve con fuentes, tiempos, tokens, TTFT y TPOT.</text><text class="p" x="54" y="916">El razonamiento interno del modelo se elimina:</text><text class="p" x="54" y="934">nunca se muestra ni se guarda.</text>
+  <rect class="box" x="456" y="844" width="230" height="104" rx="8"/><text class="h" x="470" y="873">Texto → voz (VOZ)</text><text class="p" x="470" y="898">ARYA lee su respuesta</text><text class="p" x="470" y="916">con voces locales de</text><text class="p" x="470" y="934">Windows en español</text>
+  <rect class="box" x="702" y="844" width="400" height="104" rx="8"/><circle class="num" cx="724" cy="868" r="13"/><text class="nt" x="724" y="873" text-anchor="middle">7</text>
+  <text class="h" x="746" y="873">Aprobación humana</text><text class="p" x="716" y="898">El borrador aparece en pantalla. Solo una persona lo</text><text class="p" x="716" y="916">aprueba o rechaza, con una credencial que el agente</text><text class="p" x="716" y="934">no tiene.</text>
+  <path class="ln" d="M1102 896 H1136" marker-end="url(#ah)"/>
+  <rect class="box" x="1140" y="844" width="360" height="104" rx="8"/><text class="h" x="1154" y="873">Aprendizaje verificado</text><text class="p" x="1154" y="898">El agente comprueba la decisión en el CMMS</text><text class="p" x="1154" y="916">y recién entonces la guarda en su memoria</text><text class="p" x="1154" y="934">de largo plazo.</text>
+  <rect class="box" x="1516" y="844" width="364" height="104" rx="8"/><text class="h" x="1530" y="873">Traza operacional</text><text class="p" x="1530" y="898">Cada paso queda registrado: pregunta, llamada</text><text class="p" x="1530" y="916">al modelo, herramienta, fuente, duración,</text><text class="p" x="1530" y="934">resultado y decisión humana.</text>
+
+  <!-- fila inferior -->
+  <rect class="no" x="40" y="966" width="646" height="94" rx="8"/><text class="hn" x="54" y="990">Evaluación automática del agente</text><text class="tagn" x="672" y="990" text-anchor="end">NO IMPLEMENTADO EN ESTA DEMO</text>
+  <text class="pn" x="54" y="1012">Medir de forma repetida si el diagnóstico de ARYA coincide con la causa real.</text>
+  <text class="pn" x="54" y="1030">La base existe: el simulador guarda la causa de cada falla y no se la entrega al agente.</text>
+  <text class="pn" x="54" y="1048">Falta el conjunto de preguntas y la corrida automática.</text>
+
+  <rect class="no" x="702" y="966" width="400" height="94" rx="8"/><text class="hn" x="716" y="990">Identidad y permisos por usuario</text>
+  <text class="pn" x="716" y="1012">Saber quién pregunta y limitar lo que puede ver</text><text class="pn" x="716" y="1030">o pedir según su rol.</text><text class="tagn" x="716" y="1050">NO IMPLEMENTADO EN ESTA DEMO</text>
+
+  <rect x="1140" y="966" width="740" height="94" rx="8" fill="#ffffff" stroke="#aab4bf" stroke-width="1.5"/>
+  <text class="h" x="1154" y="990">Leyenda</text>
+  <rect class="box" x="1154" y="1002" width="40" height="20" rx="4"/><text class="p" x="1204" y="1017">Construido y probado</text>
+  <rect class="no" x="1500" y="1002" width="40" height="20" rx="4"/><text class="p" x="1550" y="1017">Parte de un agente completo; no está en esta demo</text>
+  <rect class="never" x="1500" y="1030" width="40" height="20" rx="4"/><text class="p" x="1550" y="1045">Excluido a propósito</text>
+</svg>
